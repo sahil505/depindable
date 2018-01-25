@@ -26,11 +26,7 @@ app.config(function($routeProvider) {
 app.controller("SearchCtrl", function($scope, $routeParams, $firebaseObject, $firebaseArray) {
   $scope.searchTerm = $routeParams.searchTerm;
   console.log($scope)
-
   $scope.users = $firebaseArray(firebase.database().ref().child("users"));
-  
-
-
 });
 
 app.controller("LoginCtrl", function($scope, $firebaseAuth, $location) {
@@ -46,49 +42,22 @@ app.controller("LoginCtrl", function($scope, $firebaseAuth, $location) {
        $scope.error = error;
      });
   }
-}); 
+});
 
 app.controller("ProfileCtrl", function($firebaseAuth, $firebaseObject, $scope, $compile, $location, $firebaseArray, $http, $window){
   var auth= $firebaseAuth();
-
-
-  // window.fbAsyncInit = function() {
-  //   FB.init({
-  //     appId      : '141394309598006',
-  //     xfbml      : true,
-  //     version    : 'v2.1'
-  //   });
-  // };
-
-
-  // (function(d, s, id){ UNCLEAR AS TO WHAT THIS MF DOES
-  //    var js, fjs = d.getElementsByTagName(s)[0];
-  //    if (d.getElementById(id)) {return;}
-  //    js = d.createElement(s); js.id = id;
-  //    js.src = "//connect.facebook.net/en_US/sdk.js";
-  //    fjs.parentNode.insertBefore(js, fjs);
-  //  }(document, 'script', 'facebook-jssdk'));
-
-  // FB.api(
-  //   "...?fields={fieldname_of_type_AgeRange}",
-  //   function(response) {
-  //     if (response&& !response.error) {
-  //       console.log(response)
-  //     }
-  //   }
-  //   );
   auth.$onAuthStateChanged(function(firebaseUser){
     if (firebaseUser) {
       $scope.displayName = firebaseUser.displayName;
       $scope.userEmail = firebaseUser.email;
       $scope.profPic = firebaseUser.photoURL;
       console.log("FIREBASE USER", firebaseUser)
-    
+
       var currUser = firebaseUser;
       console.log("CURR USER", currUser);
       var userName = currUser.displayName;
       var usersRef = firebase.database().ref().child("users");
-      
+
       $scope.allUsers = $firebaseArray(usersRef);
       console.log("ALL USERS", $scope.allUsers)
 
@@ -99,11 +68,10 @@ app.controller("ProfileCtrl", function($firebaseAuth, $firebaseObject, $scope, $
 
       $scope.user.$loaded().then(function() {
         $scope.locations = $scope.user.locations;
-        console.log("LOCATIONS", $scope.locations);  
+        console.log("LOCATIONS", $scope.locations);
       })
-    
 
-      // addition of google maps 
+      // addition of google maps
       var map = new google.maps.Map(document.getElementById('map'), {
         center: {lat: -34.397, lng: 150.644},
         zoom: 8
@@ -124,21 +92,14 @@ app.controller("ProfileCtrl", function($firebaseAuth, $firebaseObject, $scope, $
           locObj.name = $scope.place_name;
           locObj.description = $scope.description;
           locObj.$save();
-          //locations.$save();
-
           return;
-          
+
           $scope.allUsers = $firebaseArray(usersRef);
 
           var curUserRef = firebase.database().ref().child("users").child(userName);
           var user = $firebaseObject(curUserRef);
           console.log(user.locations);
 
-          // if(!user["locations"]) {
-          //   console.log("NO");
-          //   user["locations"] = { };
-          // }
-          
           console.log("thetest", user["locations"]);
           if(!user["locations"]) {
             console.log("NO");
@@ -162,14 +123,14 @@ app.controller("ProfileCtrl", function($firebaseAuth, $firebaseObject, $scope, $
               var placeObj = { "name": $scope.place_name, "description": $scope.description };
               user.locations[$scope.location] = {};
               user.locations[$scope.location][$scope.type] = []
-              user.locations[$scope.location][$scope.type].push(placeObj);           
+              user.locations[$scope.location][$scope.type].push(placeObj);
               user.$save();
               console.log("SAVED", user);
           }
             $location.path("/")
         });
       }
-    
+
       setTimeout(function() {
       var form = $compile($("<div><header>NEW PIN</header>"+
           "<hr>"+
@@ -198,16 +159,12 @@ app.controller("ProfileCtrl", function($firebaseAuth, $firebaseObject, $scope, $
        content: form[0],
       });
     },100);
-
-
-
-
     var service = new google.maps.places.PlacesService(map);
 
     var input = document.getElementById('pac-input');
     var searchBox = new google.maps.places.SearchBox(input);
     map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
-    
+
     // Bias the SearchBox results towards current map's viewport.
     map.addListener('bounds_changed', function() {
       searchBox.setBounds(map.getBounds());
@@ -223,7 +180,7 @@ app.controller("ProfileCtrl", function($firebaseAuth, $firebaseObject, $scope, $
       google.maps.event.addListener(marker, "click", function() {
       infowindow.open(map, marker);
       });
-      
+
     });
 
 searchBox.addListener('places_changed', function() {
@@ -275,14 +232,14 @@ searchBox.addListener('places_changed', function() {
   })
 
   $scope.signOut=function(){
-    auth.$signOut(); 
+    auth.$signOut();
     $location.path("/login");
   }
   $scope.newForm=function(){
     $location.path("/form");
   }
-  
-  }); 
+
+  });
 
 app.controller("FormCtrl", function($firebaseAuth, $scope, $location, $firebaseArray, $firebaseObject){
    var auth= $firebaseAuth();
@@ -292,7 +249,7 @@ app.controller("FormCtrl", function($firebaseAuth, $scope, $location, $firebaseA
       console.log(currUser);
       var userName = currUser.displayName;
       var usersRef = firebase.database().ref().child("users");
-      
+
       $scope.allUsers = $firebaseArray(usersRef);
       console.log($scope.allUsers)
 
@@ -319,24 +276,13 @@ app.controller("FormCtrl", function($firebaseAuth, $scope, $location, $firebaseA
             var placeObj = { "name": $scope.place_name, "description": $scope.description };
             user.locations[$scope.location] = {};
             user.locations[$scope.location][$scope.type] = []
-            user.locations[$scope.location][$scope.type].push(placeObj);           
+            user.locations[$scope.location][$scope.type].push(placeObj);
             user.$save();
             console.log("SAVED", user);
         }
-        // $location.path("/profile")
     }
   }
-  
+
 })
-  // $scope.submitPlaceForm=function(){
-  //   var place_name=$scope.place_name
-  //   console.log(place_name)
-  //   var location=$scope.location
-  //   var description=$scope.description
-  //   console.log(location)
-  //   console.log(description)
-    
-  //   $location.path("/profile");
-  // }
-  
+
 });
