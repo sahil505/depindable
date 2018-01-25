@@ -1,132 +1,112 @@
 
 <script>
-  window.fbAsyncInit = function() {
-    FB.init({
-      appId      : '141394309598006',
-      xfbml      : true,
-      version    : 'v2.1'
-    });
-  };
-  </script>
-    <!-- Navigation -->
-    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-        <div class="container">
-            <!-- Brand and toggle get grouped for better mobile display -->
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-<!-- INSERT PAGE LOGO WITH LINK TO BIG PERSONAL MAP -->
-                <a class="navbar-brand" href="#">Depindable</a>
-            </div>
-            <!-- Collect the nav links, forms, and other content for toggling -->
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <ul class="nav navbar-nav">
-                    <li>
-                        <a href="#">My Profile</a>
-                    </li>
-                    <li>
-                        <a ng-click="newForm()">New Pin</a>
-                    </li>
-<!-- INSERT ABOUT PAGE WITH INFO ON THE WEBSITE 
-MAKE LINKS TO RELEVANT PAGES--> 
-                    <li>
-                        <a href="#" ng-click="signOut()">Sign Out</a>
-                        <!-- <button ng-click="signOut()">Sign Out</button> -->
-                    </li>
-                    <li>
-                    <form ng-submit="doSearch()">
-                    <input type="text" id="searchUser" ng-model="searchName" placeholder="Search Users">
-                    </form>
-                    </li>
-                </ul>
-            </div>
-            <!-- /.navbar-collapse -->
+window.fbAsyncInit = function() {
+  FB.init({
+    appId      : '141394309598006',
+    xfbml      : true,
+    version    : 'v2.1'
+  });
+};
+</script>
+<!-- Navigation -->
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+  <div class="container">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <!-- INSERT PAGE LOGO WITH LINK TO BIG PERSONAL MAP -->
+      <a class="navbar-brand" href="#">Depindable</a>
+    </div>
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+        <li>
+          <a href="#">My Profile</a>
+        </li>
+        <li>
+          <a ng-click="newForm()">New Pin</a>
+        </li>
+        <!-- INSERT ABOUT PAGE WITH INFO ON THE WEBSITE
+        MAKE LINKS TO RELEVANT PAGES-->
+        <li>
+          <a href="#" ng-click="signOut()">Sign Out</a>
+          <!-- <button ng-click="signOut()">Sign Out</button> -->
+        </li>
+        <li>
+          <form ng-submit="doSearch()">
+            <input type="text" id="searchUser" ng-model="searchName" placeholder="Search Users">
+          </form>
+        </li>
+      </ul>
+    </div>
+    <!-- /.navbar-collapse -->
+  </div>
+  <!-- /.container -->
+</nav>
+<!-- Page Content -->
+<div class="container">
+  <!-- Google Maps API loader API KEY: AIzaSyBopIqdr4lJw_PeNG455-3FTpymmjYfwdI-->
+  <input id="pac-input" class="controls" type="text" placeholder="Search Box">
+
+  <div id="map" style="height:400px"></div>
+  <!-- google maps places search bar-->
+  <hr>
+  <header>
+    <h1>{{displayName}}</h1>
+    <div class="col-md-3 col-sm-6 hero-feature">
+      <div class="thumbnail">
+        <img src={{profPic}} alt="" />
+        <div class="caption">
+          {{ageRange}}
         </div>
-        <!-- /.container -->
-    </nav>
-    <!-- Page Content -->
-    <div class="container">
-    <!-- Google Maps API loader API KEY: AIzaSyBopIqdr4lJw_PeNG455-3FTpymmjYfwdI-->
-    <input id="pac-input" class="controls" type="text" placeholder="Search Box">
-
-    <div id="map" style="height:400px"></div> 
-<!-- google maps places search bar-->
-        <hr>
-        <header>
-            <h1>{{displayName}}</h1>
-            <div class="col-md-3 col-sm-6 hero-feature">
-                <div class="thumbnail">
-                    <img src={{profPic}} alt="" />
-                    <div class="caption">
-                    {{ageRange}}
-                    </div>
-                </div>
-            </div>
-        </header>
-        <hr> 
-
-        <!-- Title -->
-        <div class="row">
-            <div class="col-lg-12">
-                <h3>Been there. Pinned this.</h3>
-            </div>
-        </div>
-        <!-- /.row -->
-
-        <!-- Page Features -->
-<!-- HOW DOES ONE LINK THE FORM INPUT WITH A NEW FEATURE LABEL 
-
-MAKE THE FEATURE LABELS LOCATIONlocations AND TYPE SPECIFIC-->
-<!-- ol-md-3 col-sm-6  -->
-<div ng-repeat="(location, value) in locations">
+      </div>
+    </div>
+  </header>
+  <hr>
+  <div class="row">
+    <div class="col-lg-12">
+      <h3>Been there. Pinned this.</h3>
+    </div>
+  </div>
+  <div ng-repeat="(location, value) in locations">
     <div class="row">
-        <h2>{{location}}</h2>
-        <div ng-repeat="(category,place) in value">
-            <div class="row">
-                <h3>{{category}}</h3>
-                 <div ng-repeat="specificplace in place"> <!-- this happens once per place entered -->
-                    <div class="clearfix" ng-if="$index % 3 == 0"></div>
-                    
-                    <div class="col-md-4 col-sm-6 hero-feature">
-                        <div class="thumbnail">
-                            <img src="http://placehold.it/800x500" alt="">
-                            <div class="caption">
-                                <h3>{{specificplace.name}}</h3>
-                                <p>{{specificplace.description}}</p>
-                                <p>
-                                    <a href="#" class="btn btn-primary">Website</a> <a href="#" class="btn btn-default">More Info</a>
-                                </p>
-                            </div>
-                        </div>
-                    </div>
+      <h2>{{location}}</h2>
+      <div ng-repeat="(category,place) in value">
+        <div class="row">
+          <h3>{{category}}</h3>
+          <div ng-repeat="specificplace in place"> <!-- this happens once per place entered -->
+            <div class="clearfix" ng-if="$index % 3 == 0"></div>
+
+            <div class="col-md-4 col-sm-6 hero-feature">
+              <div class="thumbnail">
+                <img src="http://placehold.it/800x500" alt="">
+                <div class="caption">
+                  <h3>{{specificplace.name}}</h3>
+                  <p>{{specificplace.description}}</p>
+                  <p>
+                    <a href="#" class="btn btn-primary">Website</a> <a href="#" class="btn btn-default">More Info</a>
+                  </p>
                 </div>
+              </div>
             </div>
+          </div>
         </div>
+      </div>
     </div>
-    <!-- <p>{{value}}</p> -->
+  </div>
+  <footer>
+    <div class="row">
+      <div class="col-lg-12">
+        <p>Copyright &copy; Depindable 2016</p>
+      </div>
+    </div>
+  </footer>
+
 </div>
-
-        <!-- /.row -->
-
-        <!-- Footer -->
-        <footer>
-            <div class="row">
-                <div class="col-lg-12">
-                    <p>Copyright &copy; Depindable 2016</p>
-                </div>
-            </div>
-        </footer>
-
-    </div>
-    <!-- /.container -->
-
-    <!-- jQuery -->
-    <script src="js/jquery.js"></script>
-
-    <!-- Bootstrap Core JavaScript -->
-    <script src="js/bootstrap.min.js"></script>
-
+<script src="js/jquery.js"></script>
+<script src="js/bootstrap.min.js"></script>
