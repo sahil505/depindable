@@ -249,7 +249,7 @@ app.controller("FormCtrl", function($firebaseAuth, $scope, $location, $firebaseA
       console.log(currUser);
       var userName = currUser.displayName;
       var usersRef = firebase.database().ref().child("users");
-      
+
       $scope.allUsers = $firebaseArray(usersRef);
       console.log($scope.allUsers)
 
