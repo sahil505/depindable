@@ -1,0 +1,86 @@
+@charset "UTF-8";
+@import "compass";
+@import "partials/variables";
+@import "partials/normalize";
+@import "partials/layout";
+@import "partials/mixins";
+@font-face {
+  font-family:"Input Mono Narrow";
+  src: url('../fonts/input_mono_narrow.woff') format('woff');
+}
+@font-face {
+  font-family: "Input Mono Bold";
+  src: url('../fonts/input_mono_bold.woff') format('woff');
+}
+@font-face {
+  font-family: "Input Mono Narrow Bold";
+  src: url('../fonts/input_mono_narrow_bold.woff') format('woff');
+}
+body,html{
+  font-size: 14px;
+  overflow-x: hidden;
+}
+*:focus {
+    outline: none !important;
+}
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+@media screen and (max-width: $md-break) {
+  .heading-wrapper{
+    padding: 3em 16px !important;
+    h1{
+      font-size: 2rem !important;
+    }
+  }
+}
+// this is loading wrapper for inde.html page
+.loader-wrapper{
+  height: 100vh;
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  overflow: hidden;
+  background: #fff;
+  vertical-align: middle;
+  text-align: center;
+  z-index: 11;
+}
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes pulse {
+  50% {
+    background: $white;
+  }
+}
+.loading {
+    margin-top: calc( 50vh - 25px);
+    border-radius: 50%;
+    display: inline-block;
+    width: $base-line-height;
+    height: $base-line-height;
+    border: .25rem solid $off-white;
+    border-top-color: $white;
+    animation: spin $spin-duration infinite linear;
+  &--double {
+    border-style: double;
+    border-width: .5rem;
+  }
+}
+
+
+a{
+  text-decoration: none;
+}

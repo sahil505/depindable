@@ -1,0 +1,47 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Trading Automation Framework</title>
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans|PT+Sans|Varela+Round|Montserrat|Ubuntu|Nunito" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="themify-icons.css">
+    <link rel="stylesheet" href="css/psylab.css">
+    <base href="/">
+
+  </head>
+  <body ng-app="app" ng-controller="MainCtrl">
+  
+
+
+    <div data-ng-view=""  class="ngview"></div>
+
+
+
+
+    <script type='text/javascript' src="js/angular.js"></script>
+    <script>
+
+        function statusChangeCallback (response) {
+          if (response.status === 'connected') {
+            console.log("Logged in and authenticated!");
+            location.reload();
+
+          } else {
+            console.log("Cannot log in. Not Authenticated!\nPlease login to facebook to continue.");
+
+          }
+        }
+
+        function checkLoginState() {
+          FB.getLoginStatus(function(response) {
+            statusChangeCallback(response);
+
+          });
+        }
+    </script>
+    <script type='text/javascript' src="js/psylab.js"></script>
+
+  </body>
+</html>

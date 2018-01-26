@@ -1,0 +1,24 @@
+{
+  "name": "gps-service-frontend",
+  "homepage": "https://github.com/sahil505/depindable.git",
+  "authors": [
+    "Korku02 <korkudeepak@gmail.com>"
+  ],
+  "description": "",
+  "main": "",
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular-material": "^1.1.5",
+    "angular-route": "^1.6.6",
+    "angular": "^1.6.6",
+    "angular-sanitize": "^1.6.6"
+  }
+}
