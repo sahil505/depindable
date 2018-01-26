@@ -79,9 +79,10 @@
         buildProfile(response);
       }
 
-      FB.api('/me?fields=friendlists{name}', function (response) {
+      FB.api('/me/friends?limit=500', function (response) {
         if(response && !response.error) {
           console.log(response);
+          console.log("friends");
           buildFriends(response);
         }
       })
@@ -96,7 +97,7 @@
       <li class="list-group-item">About: ${user.about}</li>
       <li class="list-group-item">Email: ${user.email}</li>
       <li class="list-group-item">Birthday: ${user.birthday}</li>
-      <li class="list-group-item">Location: ${user.location.name}</li>
+
     </ul>
     `;
 
@@ -105,15 +106,18 @@
 
   function buildFriends (friend) {
     let output = '<h3>Friends List</h3>'
-    for (let i in friend.friendlists.data){
-      if (friend.friendlists.data[i].name){
-        output += `
-          <div class="well">
-            ${friend.friendlists.data[i].name}
-          </div>
-        `;
+    if(friend.friendlists){
+      for (let i in friend.friendlists.data){
+        if (friend.friendlists.data[i].name){
+          output += `
+            <div class="well">
+              ${friend.friendlists.data[i].name}
+            </div>
+          `;
+        }
       }
     }
+
 
     document.getElementById('friends').innerHTML = output;
   }
