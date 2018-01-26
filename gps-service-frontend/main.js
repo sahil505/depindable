@@ -1,5 +1,8 @@
 
 var app = angular.module('app', ['ngMaterial','ngRoute', 'ngAnimate','ngMessages']);
+
+
+URL_PREFIX="http://localhost:8080/"
 app.config(function($mdThemingProvider) {
   $mdThemingProvider.theme('default')
   .primaryPalette('teal', {
@@ -20,6 +23,9 @@ app.config(["$routeProvider", "$locationProvider", function($routeProvider, $loc
   $routeProvider.when("/", {
     controller: "MainCtrl",
     templateUrl: "templates/home.html"
+  }).when("/pinlocation", {
+    controller: "MapCtrl",
+    templateUrl: "templates/pinlocation.html"
   }).otherwise({
     controller: "MainCtrl",
     templateUrl: "templates/error.html"

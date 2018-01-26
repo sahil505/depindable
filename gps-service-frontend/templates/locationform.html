@@ -1,0 +1,62 @@
+<div class="pin-form-page" >
+
+  <form class="pin-form" name="userForm">
+    <h1 class="heading  center">Pin Location Form</h1>
+    <div class="" layout="row" layout-align="center center">
+      <md-input-container class=" md-icon-float md-block " flex="80" >
+        <label>Place Name</label>
+
+          <input required md-no-asterisk name="placename" ng-model="user.placename">
+          <div ng-messages="userForm.placename.$error">
+            <div ng-message="required">This is required.</div>
+          </div>
+      </md-input-container>
+    </div>
+    <div class="" layout="row" layout-align="center center">
+      <md-input-container class="md-icon-float md-block " flex="80">
+        <label>Rating</label>
+
+        <md-select required name="rating" ng-model="user.rating">
+          <md-option  value="1">1</md-option>
+          <md-option  value="2">2</md-option>
+          <md-option  value="3">3</md-option>
+          <md-option  value="4">4</md-option>
+          <md-option  value="5">5</md-option>
+        </md-select>
+          <div ng-messages="userForm.rating.$error">
+            <div ng-message="required">This is required.</div>
+          </div>
+      </md-input-container>
+    </div>
+    <div class="" layout="row" layout-align="center center">
+      <md-input-container class="md-icon-float md-block " flex= "80">
+        <label>Category</label>
+
+        <md-select required name="category" ng-model="user.category">
+          <md-option  value="Cultural">Cultural</md-option>
+          <md-option  value="Food and Beverages">Food and Beverages</md-option>
+          <md-option  value="Historical Monuments">Historical Monuments</md-option>
+          <md-option  value="Religious">Religious</md-option>
+          <md-option  value="Adventurous">Adventurous</md-option>
+        </md-select>
+        <div ng-messages="userForm.category.$error">
+          <div ng-message="required">This is required.</div>
+        </div>
+        </md-input-container>
+    </div>
+    <div class="" layout="row" layout-align="center center">
+      <md-input-container class="md-icon-float md-block " flex="80">
+        <label>Remarks</label>
+
+          <input required md-no-asterisk name="remarks" ng-model="user.remarks">
+          <div ng-messages="userForm.remarks.$error">
+            <div ng-message="required">This is required.</div>
+          </div>
+      </md-input-container>
+    </div>
+    <!-- {{userForm.$invalid}} -->
+    <div class="" layout="row" layout-align="center center">
+      <a href="" class="btn-submit" ng-class="{'btn-disabled':userForm.$invalid}"  ng-click="submitRating(user)">Submit</a>
+    </div>
+</form>
+</div>

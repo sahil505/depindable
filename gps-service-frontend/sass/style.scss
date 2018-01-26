@@ -84,3 +84,40 @@ body,html{
 a{
   text-decoration: none;
 }
+
+.test{
+  border: 1px solid red;
+}
+
+.center{
+  text-align: center;
+}
+
+.pin-form-page{
+
+  width: 100%;
+
+  .pin-form{
+    padding: 16px 0px;
+
+    .heading{
+      padding: 8px 32px;
+      font-family: $ubuntu;
+      width: auto;
+    }
+
+    .btn-submit{
+      padding: 8px 16px;
+      text-decoration: none;
+      font-family: $ubuntu;
+      background-color: $primaryy-btn;
+      color: $white;
+      text-transform: uppercase;
+    }
+
+
+    .btn-disabled{
+      cursor: not-allowed;
+    }
+  }
+}

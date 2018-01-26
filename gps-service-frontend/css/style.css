@@ -313,3 +313,34 @@ body, html {
 a {
   text-decoration: none;
 }
+
+.test {
+  border: 1px solid red;
+}
+
+.center {
+  text-align: center;
+}
+
+.pin-form-page {
+  width: 100%;
+}
+.pin-form-page .pin-form {
+  padding: 16px 0px;
+}
+.pin-form-page .pin-form .heading {
+  padding: 8px 32px;
+  font-family: "Ubuntu", sans-serif;
+  width: auto;
+}
+.pin-form-page .pin-form .btn-submit {
+  padding: 8px 16px;
+  text-decoration: none;
+  font-family: "Ubuntu", sans-serif;
+  background-color: #1F8EED;
+  color: #ffffff;
+  text-transform: uppercase;
+}
+.pin-form-page .pin-form .btn-disabled {
+  cursor: not-allowed;
+}
