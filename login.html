@@ -1,3 +1,13 @@
 <div>
-  <button ng-click="signIn()">Sign in With Facebook</button>
+  <fb:login-button
+  scope="public_profile,email"
+  onlogin="checkLoginState();">
+</fb:login-button>
+<script>
+function checkLoginState() {
+  FB.getLoginStatus(function(response) {
+    statusChangeCallback(response);
+  });
+}
+</script>
 </div>
