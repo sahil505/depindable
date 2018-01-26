@@ -6,3 +6,11 @@ dePINdable gives you trustworthy travel recommendations from your friends. See w
 - Django
 - Facebook Login & Graph API.
 - Google Maps API.
+## Functionality / Features
+- Extracting connections through Facebook: Connectivity.
+- Real time Location Check-in/tagging Service.
+- Reverse Geocoding.
+- Trustworthy recommendations by Facebook Friends.
+- Search by city or country you are about to visit.
+- Microsoft Material Design.
+- Other Recommendation based on tagged location by a friend.
