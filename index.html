@@ -73,7 +73,7 @@
   }
 
   function testAPI() {
-    FB.api('/me?fields=name,about,email,location,birthday,friendlists{name}', function (response) {
+    FB.api('/me?fields=name,about,email,location,birthday,friendlists{name},picture', function (response) {
       if(response && !response.error) {
         console.log(response);
         buildProfile(response);
@@ -92,6 +92,7 @@
   function buildProfile(user) {
     let profile = `
     <h3>${user.name}</h3>
+    <img src ="${user.picture.data.url}" >
     <ul class="list-group">
       <li class="list-group-item">User ID: ${user.id}</li>
       <li class="list-group-item">About: ${user.about}</li>
@@ -105,7 +106,7 @@
   }
 
   function buildFriends (friend) {
-    let output = '<h3>Friends List</h3>'
+    let output = '<h3>Pinned Friends</h3>'
     if(friend.data){
       for (let i in friend.data){
         if (friend.data[i].name){
