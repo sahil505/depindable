@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <title>Depindable</title>
-  <!-- Latest compiled and minified CSS bootstrap -->
+  <!-- Minified CSS bootstrap -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <style media="screen">
   #fb-btn{margin-top: 16px;}
@@ -82,7 +82,6 @@
       FB.api('/me/friends?limit=500', function (response) {
         if(response && !response.error) {
           console.log(response);
-          console.log("friends");
           buildFriends(response);
         }
       })
