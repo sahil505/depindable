@@ -110,17 +110,20 @@
 function initMap(){
   // Map options
   var options = {
-    zoom:8,
+    zoom:14,
     center:{lat:28.6139,lng:77.2090}
   }
   // New map
   var map = new google.maps.Map(document.getElementById('map'), options);
+  var geocoder = new google.maps.Geocoder;
+var infowindow = new google.maps.InfoWindow;
 
   // Listen for click on map
   google.maps.event.addListener(map, 'click', function(event){
     // Add marker
     addMarker({coords:event.latLng});
   });
+
   // Add Marker Function
   function addMarker(props){
     var marker = new google.maps.Marker({
@@ -129,8 +132,24 @@ function initMap(){
     });
     console.log(marker.getPosition().lat());
     console.log(marker.getPosition().lng());
+    var latlng = {lat: marker.getPosition().lat(), lng: marker.getPosition().lng()};
+    console.log(latlng);
+    geocoder.geocode({'location': latlng}, function(results, status) {
+      if (status === 'OK') {
+        if (results[0]) {
+          infowindow.setContent(results[0].formatted_address);
+          infowindow.open(map, marker);
+        } else {
+          window.alert('No results found');
+        }
+      } else {
+        window.alert('Geocoder failed due to: ' + status);
+      }
+    });
   }
 }
+</script>
+
 </script>
 <script async defer
 src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDoMuTG-6-o5Sg1sV7TcB18y5nlMatdGn4&callback=initMap">
