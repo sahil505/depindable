@@ -17,7 +17,7 @@
       appId      : '211179206119669',
       cookie     : true,
       xfbml      : true,
-      version    : 'v2.8'
+      version    : 'v2.11'
     });
 
     FB.getLoginStatus(function(response) {
@@ -91,7 +91,7 @@
   function buildProfile(user) {
     let profile = `
     <h3>${user.name}</h3>
-    <img src ="${user.picture.data.url}" >
+    <img id="profilePic" src ="${user.picture.data.url}" >
     <br><br>
     <ul class="list-group">
     <li class="list-group-item">User ID: ${user.id}</li>
