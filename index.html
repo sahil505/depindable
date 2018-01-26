@@ -106,12 +106,12 @@
 
   function buildFriends (friend) {
     let output = '<h3>Friends List</h3>'
-    if(friend.friendlists){
-      for (let i in friend.friendlists.data){
-        if (friend.friendlists.data[i].name){
+    if(friend.data){
+      for (let i in friend.data){
+        if (friend.data[i].name){
           output += `
             <div class="well">
-              ${friend.friendlists.data[i].name}
+              ${friend.data[i].name}
             </div>
           `;
         }
