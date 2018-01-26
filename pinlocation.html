@@ -113,7 +113,6 @@ function initMap(){
     zoom:8,
     center:{lat:28.6139,lng:77.2090}
   }
-
   // New map
   var map = new google.maps.Map(document.getElementById('map'), options);
 
@@ -128,7 +127,8 @@ function initMap(){
       position:props.coords,
       map:map,
     });
-    console.log(props.coords);
+    console.log(marker.getPosition().lat());
+    console.log(marker.getPosition().lng());
   }
 }
 </script>
