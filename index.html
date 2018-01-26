@@ -7,7 +7,7 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <style media="screen">
   #fb-btn{margin-top: 16px;}
-  #profile, #logout{display: none;}
+  #profile,#logout,#friends{display: none;}
   </style>
 </head>
 <body>
@@ -54,11 +54,13 @@
     if (isLoggedIn) {
       document.getElementById('logout').style.display = 'block';
       document.getElementById('profile').style.display = 'block';
+      document.getElementById('friends').style.display = 'block';
       document.getElementById('fb-btn').style.display = 'none';
       document.getElementById('heading').style.display = 'none';
     } else {
       document.getElementById('logout').style.display = 'none';
       document.getElementById('profile').style.display = 'none';
+      document.getElementById('friends').style.display = 'none';
       document.getElementById('fb-btn').style.display = 'block';
       document.getElementById('heading').style.display = 'block';
     }
@@ -71,11 +73,18 @@
   }
 
   function testAPI() {
-    FB.api('/me?fields=name,about,email,location,birthday', function (response) {
+    FB.api('/me?fields=name,about,email,location,birthday,friendlists{name}', function (response) {
       if(response && !response.error) {
         console.log(response);
         buildProfile(response);
       }
+
+      FB.api('/me?fields=friendlists{name}', function (response) {
+        if(response && !response.error) {
+          console.log(response);
+          buildFriends(response);
+        }
+      })
     })
   }
 
@@ -93,6 +102,22 @@
 
     document.getElementById('profile').innerHTML = profile;
   }
+
+  function buildFriends (friend) {
+    let output = '<h3>Friends List</h3>'
+    for (let i in friend.friendlists.data){
+      if (friend.friendlists.data[i].name){
+        output += `
+          <div class="well">
+            ${friend.friendlists.data[i].name}
+          </div>
+        `;
+      }
+    }
+
+    document.getElementById('friends').innerHTML = output;
+  }
+
 </script>
 
 <nav class="navbar navbar-default">
@@ -114,7 +139,7 @@
         <li><a id="logout" href="" onclick="logout()">Logout</a></li>
         <fb:login-button
         id ="fb-btn"
-        scope="public_profile,email,user_about_me,user_location,user_birthday"
+        scope="public_profile,email,user_about_me,user_location,user_birthday,user_friends,read_custom_friendlists"
         onlogin="checkLoginState();">
       </fb:login-button>
     </ul>
@@ -125,6 +150,7 @@
 <div class="container">
   <h3 id="heading">Log in to view your profile.</h3>
   <div id="profile"></div>
+  <div id="friends"></div>
 </div>
 
 </body>
