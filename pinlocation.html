@@ -8,6 +8,7 @@
   <style media="screen">
   #fb-btn{margin-top: 16px;}
   #profile,#logout,#friends{display: none;}
+  #map{height: 400px; width: 100%;}
   </style>
 </head>
 <body>
@@ -102,8 +103,22 @@
 </div>
 
 <div class="container">
-  <h3>Pin Your Location</h3>
+  <h2>Pin Your Location</h2>
+  <div id="map"></div>
 </div>
-
+<script>
+  function initMap () {
+    // Map Options
+    var option = {
+      zoom: 14,
+      center: {lat:28.6139,lng:77.2090}
+    }
+    // New Map
+    var map = new google.maps.Map(document.getElementById('map'), option);
+  }
+</script>
+<script async defer
+src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDoMuTG-6-o5Sg1sV7TcB18y5nlMatdGn4&callback=initMap">
+</script>
 </body>
 </html>
