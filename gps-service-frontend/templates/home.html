@@ -17,7 +17,7 @@
 
 
   </div>
-  <div class="show-all-pins-container ">
+  <div class="show-all-pins-container " ng-init="updatepindata()">
     <div class="show-pins-card" md-whiteframe="2">
 
         <md-content class="tabs">
@@ -39,8 +39,44 @@
             </md-tab>
             <md-tab label="Friends Pins">
               <md-content class="md-padding">
-                <h1 class="md-display-2">Tab Two</h1>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla venenatis ante augue. Phasellus volutpat neque ac dui mattis vulputate. Etiam consequat aliquam cursus. In sodales pretium ultrices. Maecenas lectus est, sollicitudin consectetur felis nec, feugiat ultricies mi. Aliquam erat </p>
+                <div class="valign-wrapper" layout="row" layout-xs="column">
+                  <md-input-container class="md-block" flex-gt-sm="25">
+                    <label>Category</label>
+                    <input   ng-model="filterfriendspins.category"   md-select-on-focus></input>
+                  </md-input-container>
+                  <md-input-container class="md-block" flex-gt-sm="25">
+                    <label>placename</label>
+                    <input   ng-model="filterfriendspins.placename"   md-select-on-focus></input>
+                  </md-input-container>
+                  <md-input-container class="md-block" flex-gt-sm="25">
+                    <label>friends name</label>
+                    <input   ng-model="filterfriendspins.friend_name"  md-select-on-focus></input>
+                  </md-input-container>
+                  <!-- <md-input-container class="md-block valign-wrapper" flex-gt-sm="25"> -->
+
+                  <div class="" flex="25" style="margin-bottom:16px">
+                    <a class="see-btn" md-whiteframe="1" ng-click="filterFriendsPins(filterfriendspins)">Filter</a>
+                  </div>
+
+                  <!-- </md-input-container> -->
+
+
+                </div>
+                <div class="" ng-if="friendspinsdata.length==0">
+                  No data found
+                </div>
+                <ul class="mypins-list">
+
+                  <li ng-repeat="data in friendspinsdata" layout="row" layout-xs="column" layout-sm="column">
+
+                    <p flex-gt-sm="30">{{data.location_name}}</p>
+                    <p flex-gt-sm="20">{{data.friend_name}}</p>
+                    <p flex-gt-sm="20"><jk-rating-stars max-rating="5" rating="data.rating" read-only="true" ></jk-rating-stars></p>
+                    <p flex-gt-sm="10">{{data.remarks}}</p>
+                    <p flex-gt-sm="10">{{data.category}}</p>
+                    <p flex-gt-sm="10"><a class="see-btn" md-whiteframe="1" ng-href="#!/mypinlocation/?lat={{data.lat}}&lng={{data.lng}}">See on Map</a></p>
+                  </li>
+                </ul>
               </md-content>
             </md-tab>
 

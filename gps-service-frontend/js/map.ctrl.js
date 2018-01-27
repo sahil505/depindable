@@ -26,30 +26,40 @@ app.controller('MapCtrl', function($scope, $rootScope, $location, $mdDialog, $ht
 
       $scope.geocoder =  new google.maps.Geocoder;
       $scope.infowindow = new google.maps.InfoWindow;
-      if (navigator.geolocation) {
-          navigator.geolocation.getCurrentPosition(function(position) {
-          var  mapcenterpos = {
-              lat: position.coords.latitude,
-              lng: position.coords.longitude
-            };
+
+      $scope.getCurr = function(){
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(function(position) {
+            var  mapcenterpos = {
+                lat: position.coords.latitude,
+                lng: position.coords.longitude
+              };
 
 
-            $window.localStorage.currentlocation = JSON.stringify(mapcenterpos);
+              $window.localStorage.currentlocation = JSON.stringify(mapcenterpos);
+              $scope.$apply(function() {
+                  $scope.mycurrlocation=mapcenterpos;
+                  $scope.infowindow.setPosition($scope.mycurrlocation);
+                  $scope.infowindow.setContent('This is your current locations');
+                  $scope.infowindow.open($scope.mymapdetail);
+              });
 
-            // console.log(pos);
-          }, function() {
-            handleLocationError(true, infoWindow, map.getCenter());
-          });
-        } else {
-          // Browser doesn't support Geolocation
-          handleLocationError(false, infoWindow, map.getCenter());
-        }
+              // console.log(pos);
+            }, function() {
+              handleLocationError(true, infoWindow, map.getCenter());
+            });
+          } else {
+            // Browser doesn't support Geolocation
+            handleLocationError(false, infoWindow, map.getCenter());
+          }
+      }
+
       //set up map
       if($window.localStorage.currentlocation){
         $scope.mycurrlocation = JSON.parse($window.localStorage.currentlocation);
       }
       else{
-        $scope.mycurrlocation = {lat:22.6139,lng:77.2090};
+        $scope.mycurrlocation = {lat:28.544976,lng:77.192628};
       }
 
       console.log($scope.currentlocation);
@@ -65,6 +75,11 @@ app.controller('MapCtrl', function($scope, $rootScope, $location, $mdDialog, $ht
 
       $scope.mymapdetail = new google.maps.Map(document.getElementById('map'), mapOptions);
 
+      $scope.initmymap = function(){
+        $scope.mymapdetail = new google.maps.Map(document.getElementById('map'), mapOptions);
+        console.log("initing map ....");
+      }
+
       // Listen for click on map
       google.maps.event.addListener($scope.mymapdetail, 'click', function(event){
         // Add marker
@@ -73,7 +88,7 @@ app.controller('MapCtrl', function($scope, $rootScope, $location, $mdDialog, $ht
 
       if($window.localStorage.currentlocation){
         $scope.mycurrlocation = JSON.parse($window.localStorage.currentlocation);
-        $scope.infowindow.setPosition(  $scope.mycurrlocation);
+        $scope.infowindow.setPosition($scope.mycurrlocation);
         $scope.infowindow.setContent('This is your current locations');
         $scope.infowindow.open($scope.mymapdetail);
       }
@@ -83,7 +98,7 @@ app.controller('MapCtrl', function($scope, $rootScope, $location, $mdDialog, $ht
 
 
       $scope.markedPins = [];
-      function addMarker(props){
+      function addMarker(props) {
         var marker = new google.maps.Marker({
           position:props.coords,
           map:$scope.mymapdetail,
@@ -102,6 +117,7 @@ app.controller('MapCtrl', function($scope, $rootScope, $location, $mdDialog, $ht
             if (results[0]) {
               $scope.infowindow.setContent(results[0].formatted_address);
               $scope.infowindow.open(map, marker);
+
 
               temp['geo_address'] = results[0].formatted_address;
             } else {
@@ -125,6 +141,8 @@ app.controller('MapCtrl', function($scope, $rootScope, $location, $mdDialog, $ht
 
 
       }
+
+
 
 
       $scope.showAdvanced = function(user, ev) {
@@ -192,20 +210,20 @@ app.controller('MapCtrl', function($scope, $rootScope, $location, $mdDialog, $ht
           }
         }
 
-  $scope.getFriendPins = function(){
-    $http({
-      url:URL_PREFIX+"api/friendspins/",
-      method:"GET",
-      headers:{
-        'Content-Type': 'application/json; charset=UTF-8',
-        'Authorization': AUTHORIZATION
-      }
-    }).then(function sucessCallback(response) {
-
-      console.log(response);
-    }, function errorCallback(error) {
-      console.log(error);
-
-    });
-  }
+  // $scope.getFriendPins = function(){
+  //   $http({
+  //     url:URL_PREFIX+"api/friendspins/",
+  //     method:"GET",
+  //     headers:{
+  //       'Content-Type': 'application/json; charset=UTF-8',
+  //       'Authorization': AUTHORIZATION
+  //     }
+  //   }).then(function sucessCallback(response) {
+  //
+  //     console.log(response);
+  //   }, function errorCallback(error) {
+  //     console.log(error);
+  //
+  //   });
+  // }
 });

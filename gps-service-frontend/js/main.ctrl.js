@@ -24,6 +24,7 @@ $scope.logInUser=function (user) {
   $scope.isLoadinglogin = false;
   $scope.loginfinished = true;
   $scope.getmyPins(response.data.access_token);
+  $scope.getfriendsPins(response.data.access_token);
 
   $location.path('/');
   // $mdToast.show(
@@ -126,6 +127,27 @@ $scope.getmyPins = function(token){
   }).then(function sucessCallback(response) {
 
     $scope.mypinsdata = response.data;
+  }, function errorCallback(error) {
+      console.log(error);
+
+  });
+}
+
+$scope.getfriendsPins = function(token){
+  console.log($scope.loginfinished);
+  $http({
+    url:URL_PREFIX+"api/friendspins/",
+    method:"GET",
+    headers:{
+      'Content-Type': 'application/json; charset=UTF-8',
+      'Authorization': 'Bearer '+token
+    }
+  }).then(function sucessCallback(response) {
+
+    $scope.friendspinsdata = response.data;
+    // console.log($scope.friendspinsdata);
+
+
   }, function errorCallback(error) {
       console.log(error);
 
@@ -334,6 +356,58 @@ $scope.islogin = false;
       $scope.cancel = function() {
         $mdDialog.cancel();
       };
+
+    }
+
+    $scope.updatepindata = function(){
+      if($window.localStorage.userFullDetails){
+        $scope.getmyPins(JSON.parse($window.localStorage.userFullDetails).token);
+        $scope.getfriendsPins(JSON.parse($window.localStorage.userFullDetails).token);
+      }
+    }
+
+    $scope.filterFriendsPins = function(data){
+      // console.log(data);
+      // datatemp = {}
+      // datatemp['category'] = " ";
+      // datatemp['place_name'] = " ";
+      // datatemp['friend_name'] = " ";
+      //
+      // if(data == undefined){
+      //   data  = datatemp;
+      // }
+
+      if(data==undefined){
+        console.log("data is undefined....");
+        $mdToast.show(
+          $mdToast.simple()
+          .textContent("Please enter a filter type :)")
+          .position('bottom right')
+          .hideDelay(3000)
+        );
+      }
+      else{
+        $http({
+          url:URL_PREFIX+"api/filterpins/",
+          method:"POST",
+          headers:{
+            'Content-Type': 'application/json; charset=UTF-8',
+            'Authorization': AUTHORIZATION
+          },
+          data:{
+            'category':data.category,
+            'place_name':data.placename,
+            'friend_name':data.friend_name
+          }
+        }).then(function sucessCallback(response) {
+
+          $scope.friendspinsdata = response.data;
+        }, function errorCallback(error) {
+            console.log(error);
+
+        });
+      }
+
 
     }
 });
