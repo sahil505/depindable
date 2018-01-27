@@ -20,8 +20,10 @@ $scope.logInUser=function (user) {
 
   response = JSON.parse(JSON.stringify(response));
   // console.log(response);
-  // console.log(" respose");
+  console.log(response.data.access_token);
   $scope.isLoadinglogin = false;
+  $scope.loginfinished = true;
+  $scope.getmyPins(response.data.access_token);
 
   $location.path('/');
   // $mdToast.show(
@@ -112,13 +114,14 @@ $scope.SignUp = function(){
   });
   }
 
-$scope.getmyPins = function(){
+$scope.getmyPins = function(token){
+  console.log($scope.loginfinished);
   $http({
     url:URL_PREFIX+"api/mypins/",
     method:"GET",
     headers:{
       'Content-Type': 'application/json; charset=UTF-8',
-      'Authorization': AUTHORIZATION
+      'Authorization': 'Bearer '+token
     }
   }).then(function sucessCallback(response) {
 
@@ -244,6 +247,7 @@ $scope.islogin = false;
           // console.log($scope.newfriends);
           $scope.logInUser($scope.profiledata.email);
 
+
         }
       })
     })
@@ -258,13 +262,17 @@ $scope.islogin = false;
 
   $rootScope.loadingComp=true;
     $timeout(function() {
-  }, 1000);
+  }, 0);
+
+
 
   $scope.getupdatedData = function(){
     console.log("updating ..data");
 
+
     if($window.localStorage.profiledata){
       $scope.profiledata = JSON.parse($window.localStorage.profiledata);
+        // $scope.getmyPins();
       console.log($scope.userprofiledata);
       $scope.islogin = "true";
     }
@@ -276,4 +284,56 @@ $scope.islogin = false;
     }
   }
 
+
+
+  $scope.mypinonMap = function(lat,lng, ev) {
+    console.log(lat);
+    console.log(lng);
+    $rootScope.mypinpos = {"lat":lat, "lng":lng}
+      $mdDialog.show({
+        controller: mypinonMapController,
+        templateUrl: '../templates/mypinsonmap.html',
+        parent: angular.element(document.body),
+        targetEvent: ev,
+        clickOutsideToClose:true
+      })
+      .then(function(answer) {
+        $scope.status = 'You said the information was "' + answer + '".';
+      }, function() {
+        $scope.status = 'You cancelled the dialog.';
+      });
+    };
+
+    function mypinonMapController($scope, $mdDialog) {
+
+      $rootScope.mypinpos = $rootScope.mypinpos;
+      $scope.initdialog = function(data){
+        console.log(data);
+        // console.log(document.getElementById('map'));
+        console.log("init.....");
+      }
+      // $scope.mypinpos = $rootScope.mypinpos;
+      // var mapOptions = {
+      //     zoom:14,
+      //     center:$scope.mypinpos,
+      //     mapTypeId: google.maps.MapTypeId.TERRAIN
+      // };
+      //
+      //
+      //
+      // $scope.newmap = new google.maps.Map(document.getElementById('mypinmap'), mapOptions);
+      //
+      //   infoWindow.setPosition($scope.mypinpos);
+      //   infoWindow.setContent('Location found.');
+      //   infoWindow.open($scope.newmap);
+
+      $scope.hide = function() {
+        $mdDialog.hide();
+      };
+
+      $scope.cancel = function() {
+        $mdDialog.cancel();
+      };
+
+    }
 });
