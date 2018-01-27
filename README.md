@@ -1,11 +1,12 @@
 # dePINdable
 ### Microsoft's Code.Fun.Do Project by Sahil Khokhar & Deepak Korku
-dePINdable gives you trustworthy travel recommendations from your friends. See which all places your friends have visited in a particular country or a city. View their recommendations of exciting places to check out whenever you visit a new city or country.
+dePINdable gives you trustworthy travel recommendations from your 'known' friends. See which all places your friends have visited in a particular country or a city. View their recommendations & reviews of these exciting places to check out whenever you visit a new city or country. This app also gives recommendations of the nearby places (of same category) that match the recommendation given by your friend.
 ## Technologies Used
 - AngularJS
 - Django
 - Facebook Login & Graph API.
 - Google Maps API.
+- Zomato API
 ## Why this application?
 - Technology/Internet: Connecting people to resources or providing people with the information they require in the most efficient and best possible way. To access any information or to communicate with anyone from anywhere in the world in the most efficient way.
 - Imagine you are visiting a new city or a new country and don't know what all you can explore in the city or the country. This application or service will come in handy to gain trustworthy recommendations given by your facebook friends who have already visited the city or the country and have pin marked the locations using their profile in the application.
