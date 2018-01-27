@@ -122,6 +122,18 @@ a{
   }
 }
 
+.my-custom-stars .button .material-icons {
+  font-size: 50px;
+}
+
+.my-custom-stars .star-button.star-on .material-icons {
+  color: #003399;
+}
+
+.my-custom-stars .star-button.star-off .material-icons {
+  color: #99ccff;
+}
+
 .home-page{
 
   .userprofile-container{
@@ -130,9 +142,9 @@ a{
     min-height: 20vh;
     // padding: 32px;
 
-    background: #673AB7;  /* fallback for old browsers */
-    background: -webkit-linear-gradient(to right, #512DA8, #673AB7);  /* Chrome 10-25, Safari 5.1-6 */
-    background: linear-gradient(to right, #512DA8, #673AB7); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    background: #005C97;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #363795, #005C97);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #363795, #005C97); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 
     position: relative;
 
@@ -182,6 +194,16 @@ a{
           li{
             border-bottom: 1px solid #CFD8DC;
             padding: 8px 0px;
+          }
+
+          .see-btn{
+            background-color: $primaryy-btn;
+            color: $white;
+            font-family: $ubuntu;
+            padding: 8px 16px;
+            text-transform: uppercase;
+            text-decoration: none;
+            cursor: pointer;
           }
         }
 

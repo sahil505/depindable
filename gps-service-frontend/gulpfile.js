@@ -31,7 +31,9 @@ gulp.task('build-bower-lib', function() {
                   'bower_components/angular-messages/angular-messages.min.js',
                   'bower_components/angular-aria/angular-aria.min.js',
                   'bower_components/angular-route/angular-route.min.js',
-                  'bower_components/angular-animate/angular-animate.min.js'])
+                  'bower_components/angular-animate/angular-animate.min.js',
+                  'bower_components/angular-jk-rating-stars/dist/jk-rating-stars.min.js',
+                  ])
     .pipe(concat('angular.js'))
     .pipe(gulp.dest('dist/js'));
 })
@@ -65,6 +67,7 @@ gulp.task('build-sourcejs', function() {
 gulp.task('build-customcss', function() {
   return gulp.src([
       'bower_components/angular-material/angular-material.min.css',
+      'bower_components/angular-jk-rating-stars/dist/jk-rating-stars.css',
       'css/*.css'])
     .pipe(concat('psylab.css'))
     .pipe(gulp.dest('dist/css'));

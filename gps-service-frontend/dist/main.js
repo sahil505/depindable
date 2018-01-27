@@ -1,5 +1,5 @@
 
-var app = angular.module('app', ['ngMaterial','ngRoute', 'ngAnimate','ngMessages']);
+var app = angular.module('app', ['ngMaterial','ngRoute', 'ngAnimate','ngMessages','jkAngularRatingStars']);
 
 
 var URL_PREFIX='http://localhost:8080/';
@@ -29,6 +29,9 @@ app.config(["$routeProvider", "$locationProvider", function($routeProvider, $loc
   }).when("/pinlocation", {
     controller: "MapCtrl",
     templateUrl: "templates/pinlocation.html"
+  }).when("/mypinlocation", {
+    controller: "MypinmapCtrl",
+    templateUrl: "templates/mypinsonmap.html"
   }).otherwise({
     controller: "MainCtrl",
     templateUrl: "templates/error.html"

@@ -19,6 +19,8 @@
     "angular-material": "^1.1.5",
     "angular-route": "^1.6.6",
     "angular": "^1.6.6",
-    "angular-sanitize": "^1.6.6"
+    "angular-sanitize": "^1.6.6",
+    "angular-jk-rating-stars": "^1.0.8",
+    "ngmap": "^1.18.4"
   }
 }
