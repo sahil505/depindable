@@ -7,12 +7,12 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="#" style="font-size: 22px; font-weight: bold"><span style="font-size: 24px;">&#128205;</span> dePINdable</a>
+      <a class="navbar-brand" href="#" style="font-size: 22px;"><span style="font-size: 24px;">&#128205;</span> de<span style="font-weight: bold">PIN</span>dable</a>
     </div>
     <div id="navbar" class="collapse navbar-collapse" style="margin:0;">
       <ul class="nav navbar-nav navbar-right">
-        <li><a href="/">Home</a></li>
-        <li><a href="#!pinlocation">Pin Your Location</a></li>
+        <li><a href="/" ng-show="islogin">Home</a></li>
+        <li><a href="#!pinlocation" ng-show="islogin">Pin Your Location</a></li>
         <li><a id="logout" href="" ng-click="logout1()" ng-show="islogin">Logout</a></li>
         <fb:login-button
         id ="fb-btn" style="margin-top: 16px;"
