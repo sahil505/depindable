@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "description": "Psylab is a python based trading simulator. The idea is to build an ecosystem where talents can research and develop trading algorithms in the most efficient environment and the least number of lines.",
   "main": "main.js",
-  "dependencies": {},
+  "dependencies": {
+    "gulp": "^3.9.1"
+  },
   "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
