@@ -19,19 +19,19 @@ dePINdable gives you trustworthy travel recommendations from your 'known' facebo
 - Used Facebook Graph API to extract the entire user graph (info, location, friends etc.).
 - Used Google Maps API to allow user to drop a pin and mark a location.
 - User was able to submit the rating and feedback based on his or her pinned locations.
-- Gave functionality to the user to view the pinned location of friends with the feedback on the google maps.
+- Provided functionality to the user to view the pinned location of friends with the feedback on the google maps.
 - Used Zomato API to give recommendations to the user regarding food restaurants.
 - Used Ranking algorithm to show most relevant recommendations.
-- This application is completely responsive and good to go on production setup.
+- This application is completely responsive and good to go for production setup.
 ## Functionality / Features
 - Extracting connections through Facebook: Connectivity.
 - Real time Location Check-in/tagging Service.
 - Reverse Geocoding.
 - Trustworthy recommendations by Facebook Friends.
 - Search by city or country you are about to visit.
-- Microsoft Material Design.
 - Other Recommendation based on tagged location by a friend.
 ## Future Goals
+- Implement some sort of friend tagging mechanism so that a user can get notified instantly about the location that his friend has tagged/recommended him.
 - Integrate all popular travel/food recommendation APIs.
 - Use other services to login such as Instagram, Twitter, Outlook/Gmail to make the application more universal.
 - Allow users to share their pinned locations on social media such as facebook, Instagram etc.
