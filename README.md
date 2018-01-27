@@ -1,7 +1,9 @@
 # :round_pushpin: dePINdable
 ### Microsoft's Code.Fun.Do Project by [Sahil Khokhar](https://github.com/sahil505) & [Deepak Korku](https://github.com/Korku02)
 ---
-dePINdable gives you trustworthy travel recommendations from your 'known' facebook friends. See which all places your friends have visited in a particular country or a city. View their recommendations & reviews of these exciting places to check out whenever you visit a new city or country. This app also gives recommendations of the nearby places (of same category) that match the recommendation given by your friend. We have also integrated Zomato food/restaurant services recommendations in our app, so basically if the recommendation given by the user is of the category food then you can see places of food nearby the recommendation given by your friend. You can also read the reviews of the of that place that users have given on the Zomato app.
+dePINdable gives you trustworthy travel recommendations from your 'known' facebook friends. See which all places your friends have visited in a particular country or a city. View their recommendations & reviews of these exciting places to check out whenever you visit a new city or country.
+
+This app also gives recommendations of the nearby places (of same category) that match the recommendation given by your friend. We have also integrated Zomato food/restaurant services recommendations in our app, so basically if the recommendation given by the user is of the category food then you can see places of food nearby the recommendation given by your friend. You can also read the reviews of the of that place that users have given on the Zomato app.
 ## Technologies Used
 - AngularJS
 - Django
@@ -19,19 +21,19 @@ dePINdable gives you trustworthy travel recommendations from your 'known' facebo
 - Used Facebook Graph API to extract the entire user graph (info, location, friends etc.).
 - Used Google Maps API to allow user to drop a pin and mark a location.
 - User was able to submit the rating and feedback based on his or her pinned locations.
-- Gave functionality to the user to view the pinned location of friends with the feedback on the google maps.
+- Provided functionality to the user to view the pinned location of friends with the feedback on the google maps.
 - Used Zomato API to give recommendations to the user regarding food restaurants.
 - Used Ranking algorithm to show most relevant recommendations.
-- This application is completely responsive and good to go on production setup.
+- This application is completely responsive and good to go for production setup.
 ## Functionality / Features
 - Extracting connections through Facebook: Connectivity.
 - Real time Location Check-in/tagging Service.
 - Reverse Geocoding.
 - Trustworthy recommendations by Facebook Friends.
 - Search by city or country you are about to visit.
-- Microsoft Material Design.
 - Other Recommendation based on tagged location by a friend.
 ## Future Goals
+- Implement some sort of friend tagging mechanism so that a user can get notified instantly about the location that his friend has tagged/recommended him.
 - Integrate all popular travel/food recommendation APIs.
 - Use other services to login such as Instagram, Twitter, Outlook/Gmail to make the application more universal.
 - Allow users to share their pinned locations on social media such as facebook, Instagram etc.
