@@ -81,6 +81,16 @@
 
       FB.api('/me/friends?limit=500', function (response) {
         if(response && !response.error) {
+            for (let i in response.data){
+              if (response.data[i].id){
+                var id = response.data[i].id;
+                FB.api('/'+id+'/picture', function(response){
+                  if(response && !response.error) {
+                    console.log(response.data.url);
+                  }
+                })
+              }
+            }
           console.log(response);
           buildFriends(response);
         }
