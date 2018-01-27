@@ -5,7 +5,7 @@ dePINdable gives you trustworthy travel recommendations from your 'known' facebo
 - AngularJS
 - Django
 - Facebook Login & Graph API.
-- Google Maps API.
+- Google Maps & Places API.
 - Zomato API
 ## Why this application?
 - Technology/Internet: Connecting people to resources or providing people with the information they require in the most efficient and best possible way. To access any information or to communicate with anyone from anywhere in the world in the most efficient way.
@@ -14,7 +14,7 @@ dePINdable gives you trustworthy travel recommendations from your 'known' facebo
 ## Features implemented
 - Used Facebook to login the user.
 - Used AngularJS to build the framework.
-- Used Django to manage the database.
+- Used Django to manage the database in the backend.
 - Used Facebook Graph API to extract the entire user graph (info, location, friends etc.).
 - Used Google Maps API to allow user to drop a pin and mark a location.
 - User was able to submit the rating and feedback based on his or her pinned locations.
