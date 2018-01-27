@@ -5,20 +5,18 @@
 
   </div>
 
-<div class="userprofile-container " ng-show="islogin">
-  <div class="profile-head" layout="row" layout-align="center center">
-    <div class="" flex="10">
-      <img src={{profiledata.picture.data.url}}  alt="">
+  <div class="userprofile-container " ng-show="islogin">
+    <div class="profile-head" layout="row" layout-align="center center">
+      <div class="" flex="10">
+        <img style="border: 4px white solid;" src={{profiledata.picture.data.url}}  alt="Profile Pic">
+      </div>
+      <div class="" flex="70">
+        <p style="font-size: 24px;" class="user-name">{{profiledata.name}}</p>
+        <p style="font-size: 16px;" class="user-email">{{profiledata.email}}</p>
+      </div>
     </div>
-    <div class="" flex="50">
-      <p class="user-name">{{profiledata.name}}</p>
-      <p class="user-email">{{profiledata.email}}</p>
-    </div>
-
-
-  </div>
-  <div class="show-all-pins-container " ng-init="updatepindata()">
-    <div class="show-pins-card" md-whiteframe="2">
+    <div style="margin-top: 18px;" class="show-all-pins-container " ng-init="updatepindata()">
+      <div class="show-pins-card" md-whiteframe="2">
 
         <md-content class="tabs">
           <md-tabs md-dynamic-height md-border-bottom>
@@ -48,9 +46,7 @@
                   No data found
                 </div>
                 <ul class="mypins-list">
-
                   <li ng-repeat="data in mypinsdata" layout="row" layout-xs="column" layout-sm="column">
-
                     <p flex-gt-sm="35">{{data.location_name}}</p>
                     <p flex-gt-sm="15"><jk-rating-stars max-rating="5" rating="data.rating" read-only="true" ></jk-rating-stars></p>
                     <p flex-gt-sm="25">{{data.remarks}}</p>
@@ -68,11 +64,11 @@
                     <input   ng-model="filterfriendspins.category"   md-select-on-focus></input>
                   </md-input-container>
                   <md-input-container class="md-block" flex-gt-sm="25">
-                    <label>placename</label>
+                    <label>Place Name</label>
                     <input   ng-model="filterfriendspins.placename"   md-select-on-focus></input>
                   </md-input-container>
                   <md-input-container class="md-block" flex-gt-sm="25">
-                    <label>friends name</label>
+                    <label>Friends Name</label>
                     <input   ng-model="filterfriendspins.friend_name"  md-select-on-focus></input>
                   </md-input-container>
                   <!-- <md-input-container class="md-block valign-wrapper" flex-gt-sm="25"> -->
@@ -106,44 +102,44 @@
           </md-tabs>
         </md-content>
 
+      </div>
     </div>
-  </div>
-  <!-- <div class="userProfile container  " layout="row" ng-show="islogin" layout-align="start center">
+    <!-- <div class="userProfile container  " layout="row" ng-show="islogin" layout-align="start center">
 
     <div class="" >
-      <img src={{profiledata.picture.data.url}}  alt="">
-    </div>
-    <div class="userProfile-card">
+    <img src={{profiledata.picture.data.url}}  alt="">
+  </div>
+  <div class="userProfile-card">
 
-      <p class="user-name">{{profiledata.name}}</p>
-      <p class="user-email">{{profiledata.email}}</p>
-      <p class="user-id">{{profiledata.id}}</p>
+  <p class="user-name">{{profiledata.name}}</p>
+  <p class="user-email">{{profiledata.email}}</p>
+  <p class="user-id">{{profiledata.id}}</p>
 
 
-    </div>
+</div>
 
-  </div> -->
+</div> -->
 </div>
 
 
 
-  <!-- <div class="container" ng-show="islogin">
+<!-- <div class="container" ng-show="islogin">
 
-    <img src={{profiledata.picture.data.url}}  alt="">
-    <p>{{profiledata.id}}</p>
-    <p>{{profiledata.name}}</p>
-    <p>{{profiledata.email}}</p>
+<img src={{profiledata.picture.data.url}}  alt="">
+<p>{{profiledata.id}}</p>
+<p>{{profiledata.name}}</p>
+<p>{{profiledata.email}}</p>
 
-  </div> -->
-  <!-- <div class="container" ng-show="islogin">
-    <h1>Friends</h1>
-  </div>
+</div> -->
+<!-- <div class="container" ng-show="islogin">
+<h1>Friends</h1>
+</div>
 
 
-  <div class="container" ng-repeat="data in friendsdata.data; " ng-show="islogin">
-    <img src={{friendsimg[$index]}} alt="" ng-show="islogin">
-    <p>{{data.name}}</p>
-    <p>{{data.id}}</p>
-  </div> -->
+<div class="container" ng-repeat="data in friendsdata.data; " ng-show="islogin">
+<img src={{friendsimg[$index]}} alt="" ng-show="islogin">
+<p>{{data.name}}</p>
+<p>{{data.id}}</p>
+</div> -->
 
 </div>
