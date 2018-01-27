@@ -1,4 +1,4 @@
-# dePINdable
+# :round_pushpin: dePINdable
 ### Microsoft's Code.Fun.Do Project by [Sahil Khokhar](https://github.com/sahil505) & [Deepak Korku](https://github.com/Korku02)
 ---
 dePINdable gives you trustworthy travel recommendations from your 'known' facebook friends. See which all places your friends have visited in a particular country or a city. View their recommendations & reviews of these exciting places to check out whenever you visit a new city or country. This app also gives recommendations of the nearby places (of same category) that match the recommendation given by your friend. We have also integrated Zomato food/restaurant services recommendations in our app, so basically if the recommendation given by the user is of the category food then you can see places of food nearby the recommendation given by your friend. You can also read the reviews of the of that place that users have given on the Zomato app.
