@@ -36,3 +36,4 @@ dePINdable gives you trustworthy travel recommendations from your 'known' facebo
 - Use other services to login such as Instagram, Twitter, Outlook/Gmail to make the application more universal.
 - Allow users to share their pinned locations on social media such as facebook, Instagram etc.
 - Use Machine learning to understand the types of places / things that user loves to do more often or what kind of food taste an individual has and then recommend locations to users accordingly.
+- Currently there is no service provided by Google Places API to submit a review from the application. Once they include this feature in their API, it can be a huge upgrade for this application.
