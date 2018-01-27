@@ -17,17 +17,17 @@
   var infowindow;
 
   function initMap() {
-    var pyrmont = {lat: 28.5494, lng: 77.2001};
+    var bellyBtn = {lat: 28.5494, lng: 77.2001};
 
     map = new google.maps.Map(document.getElementById('map'), {
-      center: pyrmont,
+      center: bellyBtn,
       zoom: 15
     });
 
     infowindow = new google.maps.InfoWindow();
     var service = new google.maps.places.PlacesService(map);
     service.nearbySearch({
-      location: pyrmont,
+      location: bellyBtn,
       radius: 500,
       type: ['school']
     }, callback);
