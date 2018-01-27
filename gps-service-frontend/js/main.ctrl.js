@@ -368,16 +368,18 @@ $scope.islogin = false;
 
     $scope.filterFriendsPins = function(data){
       // console.log(data);
-      // datatemp = {}
-      // datatemp['category'] = " ";
-      // datatemp['place_name'] = " ";
-      // datatemp['friend_name'] = " ";
+
       //
       // if(data == undefined){
       //   data  = datatemp;
       // }
 
+
       if(data==undefined){
+        datatemp = {}
+        datatemp['category'] = " ";
+        datatemp['place_name'] = " ";
+        datatemp['friend_name'] = " ";
         console.log("data is undefined....");
         $mdToast.show(
           $mdToast.simple()
@@ -387,6 +389,11 @@ $scope.islogin = false;
         );
       }
       else{
+        datatemp = {}
+        datatemp['category'] = data.category;
+        datatemp['place_name'] = data.placename;
+        datatemp['friend_name'] = data.friend_name;
+
         $http({
           url:URL_PREFIX+"api/filterpins/",
           method:"POST",
@@ -394,11 +401,7 @@ $scope.islogin = false;
             'Content-Type': 'application/json; charset=UTF-8',
             'Authorization': AUTHORIZATION
           },
-          data:{
-            'category':data.category,
-            'place_name':data.placename,
-            'friend_name':data.friend_name
-          }
+          data:datatemp
         }).then(function sucessCallback(response) {
 
           $scope.friendspinsdata = response.data;
