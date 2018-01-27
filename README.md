@@ -22,6 +22,7 @@ dePINdable gives you trustworthy travel recommendations from your 'known' facebo
 - Gave functionality to the user to view the pinned location of friends with the feedback on the google maps.
 - Used Zomato API to give recommendations to the user regarding food restaurants.
 - Used Ranking algorithm to show most relevant recommendations.
+- This application is completely responsive and good to go on production setup.
 ## Functionality / Features
 - Extracting connections through Facebook: Connectivity.
 - Real time Location Check-in/tagging Service.
