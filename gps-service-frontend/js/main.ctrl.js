@@ -376,11 +376,6 @@ $scope.islogin = false;
 
 
       if(data==undefined){
-        datatemp = {}
-        datatemp['category'] = " ";
-        datatemp['place_name'] = " ";
-        datatemp['friend_name'] = " ";
-        console.log("data is undefined....");
         $mdToast.show(
           $mdToast.simple()
           .textContent("Please enter a filter type :)")
@@ -390,9 +385,30 @@ $scope.islogin = false;
       }
       else{
         datatemp = {}
-        datatemp['category'] = data.category;
-        datatemp['place_name'] = data.placename;
-        datatemp['friend_name'] = data.friend_name;
+        if(data.category){
+          datatemp['category'] = data.category;
+        }
+        else{
+          datatemp['category'] = " ";
+        }
+
+        if(data.placename){
+          datatemp['place_name'] = data.placename;
+        }
+        else{
+          datatemp['place_name'] = " ";
+        }
+
+        if(data.friend_name){
+          datatemp['friend_name'] = data.friend_name;
+        }
+        else{
+          datatemp['friend_name'] = " ";
+        }
+
+
+
+
 
         $http({
           url:URL_PREFIX+"api/filterpins/",
@@ -405,6 +421,61 @@ $scope.islogin = false;
         }).then(function sucessCallback(response) {
 
           $scope.friendspinsdata = response.data;
+        }, function errorCallback(error) {
+            console.log(error);
+
+        });
+      }
+
+
+    }
+
+
+    $scope.filterMyPins = function(data){
+      // console.log(data);
+
+      //
+      // if(data == undefined){
+      //   data  = datatemp;
+      // }
+
+
+      if(data==undefined){
+        $mdToast.show(
+          $mdToast.simple()
+          .textContent("Please enter a filter type :)")
+          .position('bottom right')
+          .hideDelay(3000)
+        );
+      }
+      else{
+        datatemp = {}
+        if(data.category){
+          datatemp['category'] = data.category;
+        }
+        else{
+          datatemp['category'] = " ";
+        }
+
+        if(data.placename){
+          datatemp['place_name'] = data.placename;
+        }
+        else{
+          datatemp['place_name'] = " ";
+        }
+
+
+        $http({
+          url:URL_PREFIX+"api/mypins/",
+          method:"POST",
+          headers:{
+            'Content-Type': 'application/json; charset=UTF-8',
+            'Authorization': AUTHORIZATION
+          },
+          data:datatemp
+        }).then(function sucessCallback(response) {
+
+          $scope.mypinsdata = response.data;
         }, function errorCallback(error) {
             console.log(error);
 

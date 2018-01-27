@@ -24,6 +24,29 @@
           <md-tabs md-dynamic-height md-border-bottom>
             <md-tab label="MY PINS">
               <md-content class="md-padding">
+
+                <div class="valign-wrapper" layout="row" layout-xs="column">
+                  <md-input-container class="md-block" flex-gt-sm="25">
+                    <label>Category</label>
+                    <input   ng-model="filtermypins.category"   md-select-on-focus></input>
+                  </md-input-container>
+                  <md-input-container class="md-block" flex-gt-sm="25">
+                    <label>placename</label>
+                    <input   ng-model="filtermypins.placename"   md-select-on-focus></input>
+                  </md-input-container>
+                  <!-- <md-input-container class="md-block valign-wrapper" flex-gt-sm="25"> -->
+
+                  <div class="" flex="25" style="margin-bottom:16px">
+                    <a class="see-btn" md-whiteframe="1" ng-click="filterMyPins(filtermypins)">Filter</a>
+                  </div>
+
+                  <!-- </md-input-container> -->
+
+
+                </div>
+                <div class="" ng-if="mypinsdata.length==0">
+                  No data found
+                </div>
                 <ul class="mypins-list">
 
                   <li ng-repeat="data in mypinsdata" layout="row" layout-xs="column" layout-sm="column">

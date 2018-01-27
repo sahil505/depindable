@@ -176,21 +176,22 @@ app.controller('MapCtrl', function($scope, $rootScope, $location, $mdDialog, $ht
           //   $mdDialog.hide(answer);
           // };
 
-          $scope.answer = function(user){
-
+          $scope.answer = function(user, placename){
+            console.log(user);
+            console.log(placename);
             console.log(AUTHORIZATION);
             $scope.testname = $rootScope.latlngplacename.geo_address;
 
-            $scope.user.placename = $rootScope.latlngplacename.geo_address,
+            // $scope.user.placename = $rootScope.latlngplacename.geo_address,
             $http({
               url:URL_PREFIX+"api/pinlocations/",
               method:"POST",
               headers:{
                 'Content-Type': 'application/json; charset=UTF-8',
-                'Authorization': AUTHORIZATION
+                'Authorization': 'Bearer ' + JSON.parse($window.localStorage.userFullDetails).token
               },
               data:{
-                'location_name':$rootScope.latlngplacename.geo_address,
+                'location_name':placename,
                 'lat':$rootScope.latlngplacename.lat,
                 'lng':$rootScope.latlngplacename.lng,
                 'remarks':user.remarks,
