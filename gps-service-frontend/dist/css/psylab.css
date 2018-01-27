@@ -483,3 +483,52 @@ a {
 .pin-form-page .pin-form .btn-disabled {
   cursor: not-allowed;
 }
+
+.home-page .userprofile-container {
+  margin: 0 auto;
+  min-height: 20vh;
+  background: #673AB7;
+  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to right, #512DA8, #673AB7);
+  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #512da8, #673ab7);
+  /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  position: relative;
+}
+.home-page .userprofile-container .profile-head {
+  position: absolute;
+  padding: 16px;
+  width: 100%;
+}
+.home-page .userprofile-container .profile-head .user-name {
+  font-size: 2.2rem;
+  font-family: "Ubuntu", sans-serif;
+  color: #ffffff;
+}
+.home-page .userprofile-container .profile-head .user-email {
+  color: #ffffff;
+  font-family: "Ubuntu", sans-serif;
+  font-size: 1.8rem;
+}
+.home-page .userprofile-container .show-all-pins-container {
+  position: absolute;
+  top: 80%;
+  min-height: 80vh;
+  width: 100%;
+}
+.home-page .userprofile-container .show-all-pins-container .show-pins-card {
+  width: 95%;
+  margin: 0 auto;
+  background-color: #ffffff;
+  height: 70vh;
+}
+.home-page .userprofile-container .show-all-pins-container .show-pins-card .tabs {
+  height: 100%;
+}
+.home-page .userprofile-container .show-all-pins-container .show-pins-card .mypins-list {
+  list-style-type: none;
+}
+.home-page .userprofile-container .show-all-pins-container .show-pins-card .mypins-list li {
+  border-bottom: 1px solid #CFD8DC;
+  padding: 8px 0px;
+}

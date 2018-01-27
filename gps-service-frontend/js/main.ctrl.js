@@ -1,7 +1,133 @@
-app.controller('MainCtrl', function($scope, $rootScope, $location, $mdDialog, $http, $window, $mdSidenav, $timeout) {
+app.controller('MainCtrl', function($scope, $rootScope, $location, $mdDialog, $http, $window, $mdSidenav, $timeout, Auth, $mdToast) {
 
+
+  if($window.localStorage.userFullDetails){
+    $scope.userDetails = JSON.parse($window.localStorage.userFullDetails);
+    console.log($scope.userDetails.token);
+    var AUTHORIZATION = 'Bearer ' +  $scope.userDetails.token;
+    var FB_ID = $scope.userDetails.id;
+    var USER_NAME = $scope.userDetails.name;
+
+    // $scope.islogin="true";
+  }
 
 // var isLogin = false;
+$scope.logInUser=function (user) {
+  // console.log("trying login");
+  // console.log(user);
+  $scope.isLoadinglogin = true;
+  Auth.login(user).then(function(response) {
+
+  response = JSON.parse(JSON.stringify(response));
+  // console.log(response);
+  // console.log(" respose");
+  $scope.isLoadinglogin = false;
+
+  $location.path('/');
+  // $mdToast.show(
+  //   $mdToast.simple()
+  //   .textContent(response.data.message)
+  //   .position('bottom right')
+  //   .hideDelay(3000)
+  // );
+
+
+}, function (error) {
+  // console.log(error);
+  error = JSON.parse(JSON.stringify(error));
+  $scope.isLoadinglogin = false;
+
+    // $mdToast.show(
+    //   $mdToast.simple()
+    //   .textContent(error.data.message)
+    //   .position('bottom right')
+    //   .hideDelay(5000)
+    // );
+
+
+});
+};
+
+var temp1 = {};
+$scope.SignUp = function(){
+
+  // console.log("SignUp....");
+  // tempimg =
+  // console.log($scope.friendsimg);
+
+  for(var k=0; k<$scope.friendsdata.data.length; k++){
+
+    // temp1[($scope.friendsdata.data[k].id).toString()]['name'] = $scope.friendsdata.data[k].name;
+
+    temp2= {}
+
+    temp2['name'] = $scope.friendsdata.data[k].name;
+    temp2['img_url'] = $scope.friendsdata.data[k].img_url;
+
+    temp1[($scope.friendsdata.data[k].id).toString()]= temp2;
+
+    // console.log(temp1);
+  }
+
+  // console.log(temp1);
+
+
+  $http({
+    url:URL_PREFIX+'register/',
+    method:"POST",
+    headers:{
+      'Content-Type': 'application/json; charset=UTF-8'
+    },
+    data:{
+        'email':$scope.profiledata.email,
+        'name':$scope.profiledata.name,
+        'user_image_url':$scope.profiledata.picture.data.url,
+        'friends':temp1,
+        'password':"batman25",
+        'user_id':$scope.profiledata.id
+
+    }
+  }).then(function sucessCallback(response) {
+    // console.log(temp1);
+    if (response.status===200){
+      $location.path("/login");
+      // $mdToast.show(
+      //   $mdToast.simple()
+      //   .textContent('User created sucessfully!')
+      //   .position('bottom right')
+      //   .hideDelay(3000)
+      // );
+    }
+  }, function errorCallback(error) {
+
+    // console.log(temp1);
+    if (error.status===302){
+      // $mdToast.show(
+      //   $mdToast.simple()
+      //   .textContent('Something went wrong, Please try again!')
+      //   .position('bottom right')
+      //   .hideDelay(3000)
+      // );
+    }
+  });
+  }
+
+$scope.getmyPins = function(){
+  $http({
+    url:URL_PREFIX+"api/mypins/",
+    method:"GET",
+    headers:{
+      'Content-Type': 'application/json; charset=UTF-8',
+      'Authorization': AUTHORIZATION
+    }
+  }).then(function sucessCallback(response) {
+
+    $scope.mypinsdata = response.data;
+  }, function errorCallback(error) {
+      console.log(error);
+
+  });
+}
 
 $scope.islogin = false;
 
@@ -30,16 +156,16 @@ $scope.islogin = false;
 
   function statusChangeCallback (response) {
     if (response.status === 'connected') {
-      console.log("Logged in and authenticated!");
+      // console.log("Logged in and authenticated!");
       $scope.$apply(function() {
           $scope.islogin=true;
       });
-      console.log($scope.islogin);
+      // console.log($scope.islogin);
       testAPI();
 
 
     } else {
-      console.log("Cannot log in. Not Authenticated!\nPlease login to facebook to continue.");
+      // console.log("Cannot log in. Not Authenticated!\nPlease login to facebook to continue.");
 
     }
   }
@@ -56,23 +182,25 @@ $scope.islogin = false;
   }
 
   $scope.logout1 = function(){
+    $window.localStorage.clear();
     FB.logout(function(response) {
       if(response && !response.error){
         location.reload();
       }
     })
-    console.log("logout");
+    // console.log("logout");
   }
 
   function testAPI() {
-    FB.api('/me?fields=name,about,email,location,birthday,friendlists{name}', function (response) {
+    FB.api('/me?fields=name,about,email,location,birthday,friendlists{name},picture', function (response) {
       if(response && !response.error) {
 
         $scope.$apply(function() {
             $scope.profiledata=response;
+            $window.localStorage.profiledata = JSON.stringify(response);
         });
 
-        console.log($scope.profiledata);
+        // console.log($scope.profiledata);
 
       }
 
@@ -80,9 +208,41 @@ $scope.islogin = false;
         if(response && !response.error) {
           $scope.$apply(function() {
               $scope.friendsdata=response;
+              $window.localStorage.friendsdata = JSON.stringify(response);
           });
 
-          console.log($scope.friendsdata);
+          // console.log($scope.friendsdata);
+
+        }
+
+        if(response && !response.error) {
+          $scope.friendsdata.data;
+          $scope.friendsimg=[];
+            for (let i in response.data){
+              if (response.data[i].id){
+                var id = response.data[i].id;
+                FB.api('/'+id+'/picture', function(response){
+                  if(response && !response.error) {
+                    // console.log(response.data.url);
+                    $scope.$apply(function() {
+
+                        $scope.friendsimg.push(response.data.url);
+                        // console.log($scope.friendsimg);
+                        $window.localStorage.friendsimg = JSON.stringify($scope.friendsimg);
+
+                    });
+
+                  }
+                })
+              }
+            }
+
+
+          // console.log(response);
+
+          $scope.SignUp();
+          // console.log($scope.newfriends);
+          $scope.logInUser($scope.profiledata.email);
 
         }
       })
@@ -100,6 +260,20 @@ $scope.islogin = false;
     $timeout(function() {
   }, 1000);
 
+  $scope.getupdatedData = function(){
+    console.log("updating ..data");
 
+    if($window.localStorage.profiledata){
+      $scope.profiledata = JSON.parse($window.localStorage.profiledata);
+      console.log($scope.userprofiledata);
+      $scope.islogin = "true";
+    }
+    if($window.localStorage.friendsdata){
+      $scope.friendsdata = JSON.parse($window.localStorage.friendsdata);
+    }
+    if($window.localStorage.friendsimg){
+      $scope.friendsimg = JSON.parse($window.localStorage.friendsimg);
+    }
+  }
 
 });

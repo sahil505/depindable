@@ -1,12 +1,12 @@
 <div class="pin-form-page" >
 
   <form class="pin-form" name="userForm">
-    <h1 class="heading  center">Pin Location Form</h1>
+    <h1 class="heading  center">Pin Location Form{{status}}</h1>
     <div class="" layout="row" layout-align="center center">
       <md-input-container class=" md-icon-float md-block " flex="80" >
         <label>Place Name</label>
 
-          <input required md-no-asterisk name="placename" ng-model="user.placename">
+          <input required md-no-asterisk name="placename" ng-model="testname">
           <div ng-messages="userForm.placename.$error">
             <div ng-message="required">This is required.</div>
           </div>
@@ -56,7 +56,7 @@
     </div>
     <!-- {{userForm.$invalid}} -->
     <div class="" layout="row" layout-align="center center">
-      <a href="" class="btn-submit" ng-class="{'btn-disabled':userForm.$invalid}"  ng-click="submitRating(user)">Submit</a>
+      <a href="" class="btn-submit" ng-class="{'btn-disabled':userForm.$invalid}"  ng-click="answer(user)">Submit</a>
     </div>
 </form>
 </div>

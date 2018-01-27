@@ -121,3 +121,73 @@ a{
     }
   }
 }
+
+.home-page{
+
+  .userprofile-container{
+    // width: 95%;
+    margin: 0 auto;
+    min-height: 20vh;
+    // padding: 32px;
+
+    background: #673AB7;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #512DA8, #673AB7);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #512DA8, #673AB7); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+    position: relative;
+
+    .profile-head{
+      position: absolute;
+      padding: 16px;
+      // top:10%;
+      // border: 3px solid green;
+      width: 100%;
+
+      .user-name{
+        font-size: 2.2rem;
+        font-family: $ubuntu;
+        color: $white;
+      }
+
+      .user-email{
+        color: $white;
+        font-family: $ubuntu;
+        font-size: 1.8rem;
+      }
+    }
+
+    .show-all-pins-container{
+      position: absolute;
+      top:80%;
+      min-height: 80vh;
+      width: 100%;
+
+      .show-pins-card{
+        width: 95%;
+        margin: 0 auto;
+        background-color: $white;
+        height: 70vh;
+
+        .tabs{
+          height: 100%;
+          // background-color: $white;
+
+
+
+        }
+
+        .mypins-list{
+          list-style-type: none;
+
+          li{
+            border-bottom: 1px solid #CFD8DC;
+            padding: 8px 0px;
+          }
+        }
+
+      }
+
+    }
+  }
+
+}
