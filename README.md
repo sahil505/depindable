@@ -15,7 +15,7 @@ dePINdable gives you trustworthy travel recommendations from your friends. See w
 - Used Facebook Graph API to extract the entire user graph (info, location, friends etc.).
 - Used Google Maps API to allow user to drop a pin and mark a location.
 - User was able to submit the rating and feedback based on his or her pinned locations.
-- Gave functionality to the user to view the pinned location of his/her friends with the feedback on the google maps.
+- Gave functionality to the user to view the pinned location of friends with the feedback on the google maps.
 - Used AngularJS to build the framework.
 - Used Django to manage the database.
 - Used Zomato API to give recommendations to the user regarding food restaurants.
