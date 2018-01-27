@@ -23,7 +23,6 @@
             <md-tab label="MY PINS">
               <md-content class="md-padding">
                 <ul class="mypins-list">
-
                   <li ng-repeat="data in mypinsdata" layout="row" layout-xs="column" layout-sm="column">
                     <p flex-gt-sm="35">{{data.location_name}}</p>
                     <p flex-gt-sm="15"><jk-rating-stars max-rating="5" rating="data.rating" read-only="true" ></jk-rating-stars></p>
