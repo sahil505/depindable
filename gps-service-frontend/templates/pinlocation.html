@@ -1,5 +1,7 @@
-<div class="" ng-controller="MapCtrl">
-
-<div class="" id="map" style="width:100%;height:50vh"></div>
-
+<div class="" ng-controller="MapCtrl" ng-init="getFriendPins()">
+<div ng-include="'templates/navbar.html'"></div>
+<div class="" id="map" style="width:100%;height:50vh" ng-show="islogin"></div>
+<div class="center" ng-hide="islogin">
+  <h1>Please Login to continue</h1>
+</div>
 </div>

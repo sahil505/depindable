@@ -1,6 +1,15 @@
 app.controller('MapCtrl', function($scope, $rootScope, $location, $mdDialog, $http, $window, $mdSidenav, $timeout) {
 
 
+  if($window.localStorage.userFullDetails){
+    $scope.userDetails = JSON.parse($window.localStorage.userFullDetails);
+    console.log($scope.userDetails.token);
+    var AUTHORIZATION = 'Bearer ' +  $scope.userDetails.token;
+    var FB_ID = $scope.userDetails.id;
+    var USER_NAME = $scope.userDetails.name;
+
+    // $scope.islogin="true";
+  }
   var item = {
           coordinates: [40.6423926, -97.3981926]
       };
@@ -9,13 +18,48 @@ app.controller('MapCtrl', function($scope, $rootScope, $location, $mdDialog, $ht
           city: 'This is my marker. There are many like it but this one is mine.'
       };
 
+        $scope.currentlocation = {
+          lat: 23.6,
+          lng: 77.2
+        };
 
+
+      $scope.geocoder =  new google.maps.Geocoder;
+      $scope.infowindow = new google.maps.InfoWindow;
+      if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(function(position) {
+          var  mapcenterpos = {
+              lat: position.coords.latitude,
+              lng: position.coords.longitude
+            };
+
+
+            $window.localStorage.currentlocation = JSON.stringify(mapcenterpos);
+
+            // console.log(pos);
+          }, function() {
+            handleLocationError(true, infoWindow, map.getCenter());
+          });
+        } else {
+          // Browser doesn't support Geolocation
+          handleLocationError(false, infoWindow, map.getCenter());
+        }
       //set up map
+      if($window.localStorage.currentlocation){
+        $scope.mycurrlocation = JSON.parse($window.localStorage.currentlocation);
+      }
+      else{
+        $scope.mycurrlocation = {lat:22.6139,lng:77.2090};
+      }
+
+      console.log($scope.currentlocation);
       var mapOptions = {
           zoom:14,
-          center:{lat:28.6139,lng:77.2090},
+          center:$scope.mycurrlocation,
           mapTypeId: google.maps.MapTypeId.TERRAIN
       };
+
+
 
       // console.log(document.getElementById('map'));
 
@@ -27,8 +71,16 @@ app.controller('MapCtrl', function($scope, $rootScope, $location, $mdDialog, $ht
         addMarker({coords:event.latLng});
       });
 
-      $scope.geocoder =  new google.maps.Geocoder;
-      $scope.infowindow = new google.maps.InfoWindow;
+      if($window.localStorage.currentlocation){
+        $scope.mycurrlocation = JSON.parse($window.localStorage.currentlocation);
+        $scope.infowindow.setPosition(  $scope.mycurrlocation);
+        $scope.infowindow.setContent('This is your current locations');
+        $scope.infowindow.open($scope.mymapdetail);
+      }
+
+      // console.log(mapcenterpos);
+
+
 
       $scope.markedPins = [];
       function addMarker(props){
@@ -65,7 +117,9 @@ app.controller('MapCtrl', function($scope, $rootScope, $location, $mdDialog, $ht
 
         marker.addListener('click', function() {
           console.log("bhai ne click kiya bc");
-          $scope.showAdvanced();
+          $scope.showAdvanced($rootScope.user);
+          $rootScope.latlngplacename = temp;
+
         });
 
 
@@ -73,10 +127,8 @@ app.controller('MapCtrl', function($scope, $rootScope, $location, $mdDialog, $ht
       }
 
 
+      $scope.showAdvanced = function(user, ev) {
 
-
-
-      $scope.showAdvanced = function(ev) {
           $mdDialog.show({
             controller: DialogController,
             templateUrl: '../templates/locationform.html',
@@ -92,6 +144,8 @@ app.controller('MapCtrl', function($scope, $rootScope, $location, $mdDialog, $ht
         };
 
         function DialogController($scope, $mdDialog) {
+
+          $scope.testname = $rootScope.latlngplacename.geo_address;
           $scope.hide = function() {
             $mdDialog.hide();
           };
@@ -100,27 +154,31 @@ app.controller('MapCtrl', function($scope, $rootScope, $location, $mdDialog, $ht
             $mdDialog.cancel();
           };
 
-          $scope.answer = function(answer) {
-            $mdDialog.hide(answer);
-          };
+          // $scope.answer = function(answer) {
+          //   $mdDialog.hide(answer);
+          // };
 
-          $scope.submitRating = function(user){
-            console.log(user);
+          $scope.answer = function(user){
 
+            console.log(AUTHORIZATION);
+            $scope.testname = $rootScope.latlngplacename.geo_address;
 
+            $scope.user.placename = $rootScope.latlngplacename.geo_address,
             $http({
               url:URL_PREFIX+"api/pinlocations/",
               method:"POST",
               headers:{
                 'Content-Type': 'application/json; charset=UTF-8',
-                'Authorization':'Bearer JToTmVVMQtYwVVRwBrJ5maCGiiKXEr'
+                'Authorization': AUTHORIZATION
               },
               data:{
-                'location_name':user.placename,
-                'lat':"23.5435434",
-                'lng':"76.42334",
+                'location_name':$rootScope.latlngplacename.geo_address,
+                'lat':$rootScope.latlngplacename.lat,
+                'lng':$rootScope.latlngplacename.lng,
                 'remarks':user.remarks,
                 'rating':user.rating,
+                'fb_id':FB_ID,
+                'friend_name':USER_NAME,
                 'category':user.category
               }
             }).then(function sucessCallback(response) {
@@ -134,4 +192,20 @@ app.controller('MapCtrl', function($scope, $rootScope, $location, $mdDialog, $ht
           }
         }
 
+  $scope.getFriendPins = function(){
+    $http({
+      url:URL_PREFIX+"api/friendspins/",
+      method:"GET",
+      headers:{
+        'Content-Type': 'application/json; charset=UTF-8',
+        'Authorization': AUTHORIZATION
+      }
+    }).then(function sucessCallback(response) {
+
+      console.log(response);
+    }, function errorCallback(error) {
+      console.log(error);
+
+    });
+  }
 });

@@ -1,21 +1,88 @@
-<div ng-include="'templates/navbar.html'"></div>
-<div class="container" ng-show="!islogin">
-  <h3 id="heading">Log in to view your profile.</h3>
+<div class="home-page" ng-controller="MainCtrl" ng-init="getupdatedData()">
+  <div ng-include="'templates/navbar.html'"></div>
+  <div class="container" ng-show="!islogin">
+    <h3 id="heading">Log in to view your profile.</h3>
 
+  </div>
+
+<div class="userprofile-container " ng-show="islogin">
+  <div class="profile-head" layout="row" layout-align="center center">
+    <div class="" flex="10">
+      <img src={{profiledata.picture.data.url}}  alt="">
+    </div>
+    <div class="" flex="50">
+      <p class="user-name">{{profiledata.name}}</p>
+      <p class="user-email">{{profiledata.email}}</p>
+    </div>
+
+
+  </div>
+  <div class="show-all-pins-container " ng-init=getmyPins()>
+    <div class="show-pins-card" md-whiteframe="2">
+
+        <md-content class="tabs">
+          <md-tabs md-dynamic-height md-border-bottom>
+            <md-tab label="MY PINS">
+              <md-content class="md-padding">
+                <ul class="mypins-list">
+
+                  <li ng-repeat="data in mypinsdata" layout="row" layout-xs="column" layout-sm="column">
+                    <p flex-gt-sm="25">{{data.category}}</p>
+                    <p flex-gt-sm="25">{{data.location_name}}</p>
+                    <p flex-gt-sm="25">{{data.rating}}</p>
+                    <p flex-gt-sm="25">{{data.remarks}}</p>
+                  </li>
+                </ul>
+              </md-content>
+            </md-tab>
+            <md-tab label="Friends Pins">
+              <md-content class="md-padding">
+                <h1 class="md-display-2">Tab Two</h1>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla venenatis ante augue. Phasellus volutpat neque ac dui mattis vulputate. Etiam consequat aliquam cursus. In sodales pretium ultrices. Maecenas lectus est, sollicitudin consectetur felis nec, feugiat ultricies mi. Aliquam erat </p>
+              </md-content>
+            </md-tab>
+
+          </md-tabs>
+        </md-content>
+
+    </div>
+  </div>
+  <!-- <div class="userProfile container  " layout="row" ng-show="islogin" layout-align="start center">
+
+    <div class="" >
+      <img src={{profiledata.picture.data.url}}  alt="">
+    </div>
+    <div class="userProfile-card">
+
+      <p class="user-name">{{profiledata.name}}</p>
+      <p class="user-email">{{profiledata.email}}</p>
+      <p class="user-id">{{profiledata.id}}</p>
+
+
+    </div>
+
+  </div> -->
 </div>
 
 
-<div class="container" ng-show="islogin">
-  <h1>Profile Data</h1>
-  <p>{{profiledata.id}}</p>
-  <p>{{profiledata.name}}</p>
-  <p>{{profiledata.email}}</p>
-</div>
-<div class="container" ng-show="islogin">
-  <h1>Friends</h1>
-</div>
 
-<div class="container" ng-repeat="data in friendsdata.data" ng-show="islogin">
-  <p>{{data.name}}</p>
-  <p>{{data.id}}</p>
+  <!-- <div class="container" ng-show="islogin">
+
+    <img src={{profiledata.picture.data.url}}  alt="">
+    <p>{{profiledata.id}}</p>
+    <p>{{profiledata.name}}</p>
+    <p>{{profiledata.email}}</p>
+
+  </div> -->
+  <!-- <div class="container" ng-show="islogin">
+    <h1>Friends</h1>
+  </div>
+
+
+  <div class="container" ng-repeat="data in friendsdata.data; " ng-show="islogin">
+    <img src={{friendsimg[$index]}} alt="" ng-show="islogin">
+    <p>{{data.name}}</p>
+    <p>{{data.id}}</p>
+  </div> -->
+
 </div>
