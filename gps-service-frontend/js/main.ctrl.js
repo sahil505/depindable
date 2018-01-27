@@ -415,7 +415,7 @@ $scope.islogin = false;
           method:"POST",
           headers:{
             'Content-Type': 'application/json; charset=UTF-8',
-            'Authorization': AUTHORIZATION
+            'Authorization': 'Bearer ' + JSON.parse($window.localStorage.userFullDetails).token
           },
           data:datatemp
         }).then(function sucessCallback(response) {
@@ -470,7 +470,7 @@ $scope.islogin = false;
           method:"POST",
           headers:{
             'Content-Type': 'application/json; charset=UTF-8',
-            'Authorization': AUTHORIZATION
+            'Authorization': 'Bearer ' + JSON.parse($window.localStorage.userFullDetails).token
           },
           data:datatemp
         }).then(function sucessCallback(response) {
