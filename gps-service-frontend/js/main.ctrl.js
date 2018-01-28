@@ -24,6 +24,7 @@ $scope.logInUser=function (user) {
   $scope.isLoadinglogin = false;
   $scope.loginfinished = true;
   $scope.getmyPins(response.data.access_token);
+  $scope.getfriendsPins(response.data.access_token);
 
   $location.path('/');
   // $mdToast.show(
@@ -126,6 +127,27 @@ $scope.getmyPins = function(token){
   }).then(function sucessCallback(response) {
 
     $scope.mypinsdata = response.data;
+  }, function errorCallback(error) {
+      console.log(error);
+
+  });
+}
+
+$scope.getfriendsPins = function(token){
+  console.log($scope.loginfinished);
+  $http({
+    url:URL_PREFIX+"api/friendspins/",
+    method:"GET",
+    headers:{
+      'Content-Type': 'application/json; charset=UTF-8',
+      'Authorization': 'Bearer '+token
+    }
+  }).then(function sucessCallback(response) {
+
+    $scope.friendspinsdata = response.data;
+    // console.log($scope.friendspinsdata);
+
+
   }, function errorCallback(error) {
       console.log(error);
 
@@ -334,6 +356,136 @@ $scope.islogin = false;
       $scope.cancel = function() {
         $mdDialog.cancel();
       };
+
+    }
+
+    $scope.updatepindata = function(){
+      if($window.localStorage.userFullDetails){
+        $scope.getmyPins(JSON.parse($window.localStorage.userFullDetails).token);
+        $scope.getfriendsPins(JSON.parse($window.localStorage.userFullDetails).token);
+      }
+    }
+
+    $scope.filterFriendsPins = function(data){
+      // console.log(data);
+
+      //
+      // if(data == undefined){
+      //   data  = datatemp;
+      // }
+
+
+      if(data==undefined){
+        $mdToast.show(
+          $mdToast.simple()
+          .textContent("Please enter a filter type :)")
+          .position('bottom right')
+          .hideDelay(3000)
+        );
+      }
+      else{
+        datatemp = {}
+        if(data.category){
+          datatemp['category'] = data.category;
+        }
+        else{
+          datatemp['category'] = " ";
+        }
+
+        if(data.placename){
+          datatemp['place_name'] = data.placename;
+        }
+        else{
+          datatemp['place_name'] = " ";
+        }
+
+        if(data.friend_name){
+          datatemp['friend_name'] = data.friend_name;
+        }
+        else{
+          datatemp['friend_name'] = " ";
+        }
+
+
+
+
+
+        $http({
+          url:URL_PREFIX+"api/filterpins/",
+          method:"POST",
+          headers:{
+            'Content-Type': 'application/json; charset=UTF-8',
+            'Authorization': 'Bearer ' + JSON.parse($window.localStorage.userFullDetails).token
+          },
+          data:datatemp
+        }).then(function sucessCallback(response) {
+
+          $scope.friendspinsdata = response.data;
+        }, function errorCallback(error) {
+            console.log(error);
+
+        });
+      }
+
+
+    }
+
+
+    $scope.filterMyPins = function(data){
+      // console.log(data);
+
+      //
+      // if(data == undefined){
+      //   data  = datatemp;
+      // }
+
+
+      if(data==undefined){
+        $mdToast.show(
+          $mdToast.simple()
+          .textContent("Please enter a filter type :)")
+          .position('bottom right')
+          .hideDelay(3000)
+        );
+      }
+      else{
+        datatemp = {}
+
+        if(data.category){
+          datatemp['category'] = data.category;
+
+        }
+        else{
+          datatemp['category'] = " ";
+        }
+
+        if(data.placename){
+          datatemp['place_name'] = data.placename;
+
+        }
+        else{
+          datatemp['place_name'] = " ";
+        }
+
+          console.log(datatemp);
+
+        $http({
+          url:URL_PREFIX+"api/mypins/",
+          method:"POST",
+          headers:{
+            'Content-Type': 'application/json; charset=UTF-8',
+            'Authorization': 'Bearer ' + JSON.parse($window.localStorage.userFullDetails).token
+          },
+          data:datatemp
+        }).then(function sucessCallback(response) {
+
+          $scope.mypinsdata = response.data;
+        }, function errorCallback(error) {
+            console.log(error);
+
+        });
+      }
+
 
     }
 });

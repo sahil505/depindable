@@ -1,90 +1,159 @@
 <div class="home-page" ng-controller="MainCtrl" ng-init="getupdatedData()">
   <div ng-include="'templates/navbar.html'"></div>
-  <div class="container" ng-show="!islogin">
-    <h3 id="heading">Log in to view your profile.</h3>
-
-  </div>
+  <div style="margin-left: 0;margin-right: 0;padding-left: 0;padding-right: 0;" class="container" ng-show="!islogin">
+    <div style= "color: #FFF;	background: linear-gradient(to bottom, rgba(0,0,0,0.66) 100%, transparent), url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/336999/shinokubo_test.jpg);
+    background-size: cover, cover;background-position: center, center;height: 93vh;width: 110%;
+    display: flex;justify-content: center;align-items: center;" id="main" class="is-loading">
+    <h1 style="	font-family:"ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", Osaka, "メイリオ", Meiryo, "ＭＳ Ｐゴシック", "MS PGothic", sans-serif;
+    font-size: 10rem;
+    display: inline-block;
+    padding: 1rem;
+    font-weight: 400;
+    position: relative;
+    opacity: 1;
+    transform: scale(1);
+    transition: transform 0.5s ease, opacity 1s ease;">
+    dePINdable
+  </h1>
+  <p class="line-1 anim-typewriter">Animation typewriter style using css steps()</p>
+</div>
+</div>
 
 <div class="userprofile-container " ng-show="islogin">
   <div class="profile-head" layout="row" layout-align="center center">
     <div class="" flex="10">
-      <img src={{profiledata.picture.data.url}}  alt="">
+      <img style="border: 4px white solid;" src={{profiledata.picture.data.url}}  alt="Profile Pic">
     </div>
-    <div class="" flex="50">
-      <p class="user-name">{{profiledata.name}}</p>
-      <p class="user-email">{{profiledata.email}}</p>
+    <div class="" flex="70">
+      <p style="font-size: 24px;" class="user-name">{{profiledata.name}}</p>
+      <p style="font-size: 16px;" class="user-email">{{profiledata.email}}</p>
     </div>
-
-
   </div>
-  <div class="show-all-pins-container ">
+  <div style="margin-top: 18px;" class="show-all-pins-container " ng-init="updatepindata()">
     <div class="show-pins-card" md-whiteframe="2">
 
-        <md-content class="tabs">
-          <md-tabs md-dynamic-height md-border-bottom>
-            <md-tab label="MY PINS">
-              <md-content class="md-padding">
-                <ul class="mypins-list">
+      <md-content class="tabs">
+        <md-tabs md-dynamic-height md-border-bottom>
+          <md-tab label="MY PINS">
+            <md-content class="md-padding">
 
-                  <li ng-repeat="data in mypinsdata" layout="row" layout-xs="column" layout-sm="column">
+              <div class="valign-wrapper" layout="row" layout-xs="column">
+                <md-input-container class="md-block" flex-gt-sm="25">
+                  <label>Category</label>
+                  <input   ng-model="filtermypins.category"   md-select-on-focus></input>
+                </md-input-container>
+                <!-- <md-input-container class="md-block" flex-gt-sm="25">
+                <label>placename</label>
+                <input   ng-model="filtermypins.placename"   md-select-on-focus></input>
+              </md-input-container> -->
+              <!-- <md-input-container class="md-block valign-wrapper" flex-gt-sm="25"> -->
 
-                    <p flex-gt-sm="35">{{data.location_name}}</p>
-                    <p flex-gt-sm="15"><jk-rating-stars max-rating="5" rating="data.rating" read-only="true" ></jk-rating-stars></p>
-                    <p flex-gt-sm="25">{{data.remarks}}</p>
-                    <p flex-gt-sm="15">{{data.category}}</p>
-                    <p flex-gt-sm="15"><a class="see-btn" md-whiteframe="1" ng-href="#!/mypinlocation/?lat={{data.lat}}&lng={{data.lng}}">See on Map</a></p>
-                  </li>
-                </ul>
-              </md-content>
-            </md-tab>
-            <md-tab label="Friends Pins">
-              <md-content class="md-padding">
-                <h1 class="md-display-2">Tab Two</h1>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla venenatis ante augue. Phasellus volutpat neque ac dui mattis vulputate. Etiam consequat aliquam cursus. In sodales pretium ultrices. Maecenas lectus est, sollicitudin consectetur felis nec, feugiat ultricies mi. Aliquam erat </p>
-              </md-content>
-            </md-tab>
+              <div class="" flex="25" style="margin-bottom:16px">
+                <a class="see-btn" md-whiteframe="1" ng-click="filterMyPins(filtermypins)">Filter</a>
+              </div>
 
-          </md-tabs>
-        </md-content>
+              <!-- </md-input-container> -->
 
-    </div>
+
+            </div>
+            <div class="" ng-if="mypinsdata.length==0">
+              No data found
+            </div>
+            <ul class="mypins-list">
+              <li ng-repeat="data in mypinsdata" layout="row" layout-xs="column" layout-sm="column">
+                <p flex-gt-sm="35">{{data.location_name}}</p>
+                <p flex-gt-sm="15"><jk-rating-stars max-rating="5" rating="data.rating" read-only="true" ></jk-rating-stars></p>
+                <p flex-gt-sm="25">{{data.remarks}}</p>
+                <p flex-gt-sm="15">{{data.category}}</p>
+                <p flex-gt-sm="15"><a class="see-btn" md-whiteframe="1" ng-href="#!/mypinlocation/?lat={{data.lat}}&lng={{data.lng}}">See on Map</a></p>
+              </li>
+            </ul>
+          </md-content>
+        </md-tab>
+        <md-tab label="Friends Pins">
+          <md-content class="md-padding">
+            <div class="valign-wrapper" layout="row" layout-xs="column">
+              <md-input-container class="md-block" flex-gt-sm="25">
+                <label>Category</label>
+                <input   ng-model="filterfriendspins.category"   md-select-on-focus></input>
+              </md-input-container>
+              <md-input-container class="md-block" flex-gt-sm="25">
+                <label>Place Name</label>
+                <input   ng-model="filterfriendspins.placename"   md-select-on-focus></input>
+              </md-input-container>
+              <md-input-container class="md-block" flex-gt-sm="25">
+                <label>Friends Name</label>
+                <input   ng-model="filterfriendspins.friend_name"  md-select-on-focus></input>
+              </md-input-container>
+              <!-- <md-input-container class="md-block valign-wrapper" flex-gt-sm="25"> -->
+
+              <div class="" flex-gt-sm="25" style="margin-bottom:16px">
+                <a class="see-btn" md-whiteframe="1" ng-click="filterFriendsPins(filterfriendspins)">Filter</a>
+              </div>
+
+              <!-- </md-input-container> -->
+
+
+            </div>
+            <div class="" ng-if="friendspinsdata.length==0">
+              No data found
+            </div>
+            <ul class="mypins-list">
+
+              <li ng-repeat="data in friendspinsdata" layout="row" layout-xs="column" layout-sm="column">
+
+                <p flex-gt-sm="30">{{data.location_name}}</p>
+                <p flex-gt-sm="20">{{data.friend_name}}</p>
+                <p flex-gt-sm="20"><jk-rating-stars max-rating="5" rating="data.rating" read-only="true" ></jk-rating-stars></p>
+                <p flex-gt-sm="10">{{data.remarks}}</p>
+                <p flex-gt-sm="10">{{data.category}}</p>
+                <p flex-gt-sm="10"><a class="see-btn" md-whiteframe="1" ng-href="#!/mypinlocation/?lat={{data.lat}}&lng={{data.lng}}">See on Map</a></p>
+              </li>
+            </ul>
+          </md-content>
+        </md-tab>
+
+      </md-tabs>
+    </md-content>
+
   </div>
-  <!-- <div class="userProfile container  " layout="row" ng-show="islogin" layout-align="start center">
+</div>
+<!-- <div class="userProfile container  " layout="row" ng-show="islogin" layout-align="start center">
 
-    <div class="" >
-      <img src={{profiledata.picture.data.url}}  alt="">
-    </div>
-    <div class="userProfile-card">
+<div class="" >
+<img src={{profiledata.picture.data.url}}  alt="">
+</div>
+<div class="userProfile-card">
 
-      <p class="user-name">{{profiledata.name}}</p>
-      <p class="user-email">{{profiledata.email}}</p>
-      <p class="user-id">{{profiledata.id}}</p>
+<p class="user-name">{{profiledata.name}}</p>
+<p class="user-email">{{profiledata.email}}</p>
+<p class="user-id">{{profiledata.id}}</p>
 
 
-    </div>
+</div>
 
-  </div> -->
+</div> -->
 </div>
 
 
 
-  <!-- <div class="container" ng-show="islogin">
+<!-- <div class="container" ng-show="islogin">
 
-    <img src={{profiledata.picture.data.url}}  alt="">
-    <p>{{profiledata.id}}</p>
-    <p>{{profiledata.name}}</p>
-    <p>{{profiledata.email}}</p>
+<img src={{profiledata.picture.data.url}}  alt="">
+<p>{{profiledata.id}}</p>
+<p>{{profiledata.name}}</p>
+<p>{{profiledata.email}}</p>
 
-  </div> -->
-  <!-- <div class="container" ng-show="islogin">
-    <h1>Friends</h1>
-  </div>
+</div> -->
+<!-- <div class="container" ng-show="islogin">
+<h1>Friends</h1>
+</div>
 
 
-  <div class="container" ng-repeat="data in friendsdata.data; " ng-show="islogin">
-    <img src={{friendsimg[$index]}} alt="" ng-show="islogin">
-    <p>{{data.name}}</p>
-    <p>{{data.id}}</p>
-  </div> -->
+<div class="container" ng-repeat="data in friendsdata.data; " ng-show="islogin">
+<img src={{friendsimg[$index]}} alt="" ng-show="islogin">
+<p>{{data.name}}</p>
+<p>{{data.id}}</p>
+</div> -->
 
 </div>

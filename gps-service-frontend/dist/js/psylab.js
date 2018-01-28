@@ -2,7 +2,7 @@
 var app = angular.module('app', ['ngMaterial','ngRoute', 'ngAnimate','ngMessages','jkAngularRatingStars']);
 
 
-var URL_PREFIX='http://localhost:8080/';
+var URL_PREFIX='http://10.194.25.141:8080/';
 var CLIENT_ID = "bSRfOQprkYdBY1nniQaXmXyZERbgGDAUaXhlzA3i";
 var
 CLIENT_SECRET = "hsRtJ7L0QHDPgrJmyIYgjfxL24ym8rhJXk7PUfuhJm6hH3rmwgcGPrat25dITDr1u2BVbHAQ8ISV4YkIhPtgATezb806Hb1GBlQUnlDVFiLfOxQU0jzwprq7NfxyXEAp";
@@ -52,7 +52,7 @@ app.config(["$routeProvider", "$locationProvider", function($routeProvider, $loc
 app.factory("Auth", ["$http","$q","$window",function ($http, $q, $window) {
     var userFullDetails;
     function login(user) {
-        var url="http://localhost:8080/login/";
+        var url="http://10.194.25.141:8080/login/";
         var deferred = $q.defer();
         $http({
              method: "POST",
@@ -154,6 +154,7 @@ $scope.logInUser=function (user) {
   $scope.isLoadinglogin = false;
   $scope.loginfinished = true;
   $scope.getmyPins(response.data.access_token);
+  $scope.getfriendsPins(response.data.access_token);
 
   $location.path('/');
   // $mdToast.show(
@@ -256,6 +257,27 @@ $scope.getmyPins = function(token){
   }).then(function sucessCallback(response) {
 
     $scope.mypinsdata = response.data;
+  }, function errorCallback(error) {
+      console.log(error);
+
+  });
+}
+
+$scope.getfriendsPins = function(token){
+  console.log($scope.loginfinished);
+  $http({
+    url:URL_PREFIX+"api/friendspins/",
+    method:"GET",
+    headers:{
+      'Content-Type': 'application/json; charset=UTF-8',
+      'Authorization': 'Bearer '+token
+    }
+  }).then(function sucessCallback(response) {
+
+    $scope.friendspinsdata = response.data;
+    // console.log($scope.friendspinsdata);
+
+
   }, function errorCallback(error) {
       console.log(error);
 
@@ -466,6 +488,136 @@ $scope.islogin = false;
       };
 
     }
+
+    $scope.updatepindata = function(){
+      if($window.localStorage.userFullDetails){
+        $scope.getmyPins(JSON.parse($window.localStorage.userFullDetails).token);
+        $scope.getfriendsPins(JSON.parse($window.localStorage.userFullDetails).token);
+      }
+    }
+
+    $scope.filterFriendsPins = function(data){
+      // console.log(data);
+
+      //
+      // if(data == undefined){
+      //   data  = datatemp;
+      // }
+
+
+      if(data==undefined){
+        $mdToast.show(
+          $mdToast.simple()
+          .textContent("Please enter a filter type :)")
+          .position('bottom right')
+          .hideDelay(3000)
+        );
+      }
+      else{
+        datatemp = {}
+        if(data.category){
+          datatemp['category'] = data.category;
+        }
+        else{
+          datatemp['category'] = " ";
+        }
+
+        if(data.placename){
+          datatemp['place_name'] = data.placename;
+        }
+        else{
+          datatemp['place_name'] = " ";
+        }
+
+        if(data.friend_name){
+          datatemp['friend_name'] = data.friend_name;
+        }
+        else{
+          datatemp['friend_name'] = " ";
+        }
+
+
+
+
+
+        $http({
+          url:URL_PREFIX+"api/filterpins/",
+          method:"POST",
+          headers:{
+            'Content-Type': 'application/json; charset=UTF-8',
+            'Authorization': 'Bearer ' + JSON.parse($window.localStorage.userFullDetails).token
+          },
+          data:datatemp
+        }).then(function sucessCallback(response) {
+
+          $scope.friendspinsdata = response.data;
+        }, function errorCallback(error) {
+            console.log(error);
+
+        });
+      }
+
+
+    }
+
+
+    $scope.filterMyPins = function(data){
+      // console.log(data);
+
+      //
+      // if(data == undefined){
+      //   data  = datatemp;
+      // }
+
+
+      if(data==undefined){
+        $mdToast.show(
+          $mdToast.simple()
+          .textContent("Please enter a filter type :)")
+          .position('bottom right')
+          .hideDelay(3000)
+        );
+      }
+      else{
+        datatemp = {}
+
+        if(data.category){
+          datatemp['category'] = data.category;
+
+        }
+        else{
+          datatemp['category'] = " ";
+        }
+
+        if(data.placename){
+          datatemp['place_name'] = data.placename;
+
+        }
+        else{
+          datatemp['place_name'] = " ";
+        }
+
+          console.log(datatemp);
+
+        $http({
+          url:URL_PREFIX+"api/mypins/",
+          method:"POST",
+          headers:{
+            'Content-Type': 'application/json; charset=UTF-8',
+            'Authorization': 'Bearer ' + JSON.parse($window.localStorage.userFullDetails).token
+          },
+          data:datatemp
+        }).then(function sucessCallback(response) {
+
+          $scope.mypinsdata = response.data;
+        }, function errorCallback(error) {
+            console.log(error);
+
+        });
+      }
+
+
+    }
 });
 
 app.controller('MapCtrl', function($scope, $rootScope, $location, $mdDialog, $http, $window, $mdSidenav, $timeout) {
@@ -496,30 +648,40 @@ app.controller('MapCtrl', function($scope, $rootScope, $location, $mdDialog, $ht
 
       $scope.geocoder =  new google.maps.Geocoder;
       $scope.infowindow = new google.maps.InfoWindow;
-      if (navigator.geolocation) {
-          navigator.geolocation.getCurrentPosition(function(position) {
-          var  mapcenterpos = {
-              lat: position.coords.latitude,
-              lng: position.coords.longitude
-            };
+
+      $scope.getCurr = function(){
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(function(position) {
+            var  mapcenterpos = {
+                lat: position.coords.latitude,
+                lng: position.coords.longitude
+              };
 
 
-            $window.localStorage.currentlocation = JSON.stringify(mapcenterpos);
+              $window.localStorage.currentlocation = JSON.stringify(mapcenterpos);
+              $scope.$apply(function() {
+                  $scope.mycurrlocation=mapcenterpos;
+                  $scope.infowindow.setPosition($scope.mycurrlocation);
+                  $scope.infowindow.setContent('This is your current locations');
+                  $scope.infowindow.open($scope.mymapdetail);
+              });
 
-            // console.log(pos);
-          }, function() {
-            handleLocationError(true, infoWindow, map.getCenter());
-          });
-        } else {
-          // Browser doesn't support Geolocation
-          handleLocationError(false, infoWindow, map.getCenter());
-        }
+              // console.log(pos);
+            }, function() {
+              handleLocationError(true, infoWindow, map.getCenter());
+            });
+          } else {
+            // Browser doesn't support Geolocation
+            handleLocationError(false, infoWindow, map.getCenter());
+          }
+      }
+
       //set up map
       if($window.localStorage.currentlocation){
         $scope.mycurrlocation = JSON.parse($window.localStorage.currentlocation);
       }
       else{
-        $scope.mycurrlocation = {lat:22.6139,lng:77.2090};
+        $scope.mycurrlocation = {lat:28.544976,lng:77.192628};
       }
 
       console.log($scope.currentlocation);
@@ -535,6 +697,11 @@ app.controller('MapCtrl', function($scope, $rootScope, $location, $mdDialog, $ht
 
       $scope.mymapdetail = new google.maps.Map(document.getElementById('map'), mapOptions);
 
+      $scope.initmymap = function(){
+        $scope.mymapdetail = new google.maps.Map(document.getElementById('map'), mapOptions);
+        console.log("initing map ....");
+      }
+
       // Listen for click on map
       google.maps.event.addListener($scope.mymapdetail, 'click', function(event){
         // Add marker
@@ -543,7 +710,7 @@ app.controller('MapCtrl', function($scope, $rootScope, $location, $mdDialog, $ht
 
       if($window.localStorage.currentlocation){
         $scope.mycurrlocation = JSON.parse($window.localStorage.currentlocation);
-        $scope.infowindow.setPosition(  $scope.mycurrlocation);
+        $scope.infowindow.setPosition($scope.mycurrlocation);
         $scope.infowindow.setContent('This is your current locations');
         $scope.infowindow.open($scope.mymapdetail);
       }
@@ -553,7 +720,7 @@ app.controller('MapCtrl', function($scope, $rootScope, $location, $mdDialog, $ht
 
 
       $scope.markedPins = [];
-      function addMarker(props){
+      function addMarker(props) {
         var marker = new google.maps.Marker({
           position:props.coords,
           map:$scope.mymapdetail,
@@ -572,6 +739,7 @@ app.controller('MapCtrl', function($scope, $rootScope, $location, $mdDialog, $ht
             if (results[0]) {
               $scope.infowindow.setContent(results[0].formatted_address);
               $scope.infowindow.open(map, marker);
+
 
               temp['geo_address'] = results[0].formatted_address;
             } else {
@@ -595,6 +763,8 @@ app.controller('MapCtrl', function($scope, $rootScope, $location, $mdDialog, $ht
 
 
       }
+
+
 
 
       $scope.showAdvanced = function(user, ev) {
@@ -628,21 +798,22 @@ app.controller('MapCtrl', function($scope, $rootScope, $location, $mdDialog, $ht
           //   $mdDialog.hide(answer);
           // };
 
-          $scope.answer = function(user){
-
+          $scope.answer = function(user, placename){
+            console.log(user);
+            console.log(placename);
             console.log(AUTHORIZATION);
             $scope.testname = $rootScope.latlngplacename.geo_address;
 
-            $scope.user.placename = $rootScope.latlngplacename.geo_address,
+            // $scope.user.placename = $rootScope.latlngplacename.geo_address,
             $http({
               url:URL_PREFIX+"api/pinlocations/",
               method:"POST",
               headers:{
                 'Content-Type': 'application/json; charset=UTF-8',
-                'Authorization': AUTHORIZATION
+                'Authorization': 'Bearer ' + JSON.parse($window.localStorage.userFullDetails).token
               },
               data:{
-                'location_name':$rootScope.latlngplacename.geo_address,
+                'location_name':placename,
                 'lat':$rootScope.latlngplacename.lat,
                 'lng':$rootScope.latlngplacename.lng,
                 'remarks':user.remarks,
@@ -662,22 +833,22 @@ app.controller('MapCtrl', function($scope, $rootScope, $location, $mdDialog, $ht
           }
         }
 
-  $scope.getFriendPins = function(){
-    $http({
-      url:URL_PREFIX+"api/friendspins/",
-      method:"GET",
-      headers:{
-        'Content-Type': 'application/json; charset=UTF-8',
-        'Authorization': AUTHORIZATION
-      }
-    }).then(function sucessCallback(response) {
-
-      console.log(response);
-    }, function errorCallback(error) {
-      console.log(error);
-
-    });
-  }
+  // $scope.getFriendPins = function(){
+  //   $http({
+  //     url:URL_PREFIX+"api/friendspins/",
+  //     method:"GET",
+  //     headers:{
+  //       'Content-Type': 'application/json; charset=UTF-8',
+  //       'Authorization': AUTHORIZATION
+  //     }
+  //   }).then(function sucessCallback(response) {
+  //
+  //     console.log(response);
+  //   }, function errorCallback(error) {
+  //     console.log(error);
+  //
+  //   });
+  // }
 });
 
 app.controller('MypinmapCtrl', function($scope, $rootScope, $location, $mdDialog, $http, $window, $mdSidenav, $timeout, Auth, $mdToast) {

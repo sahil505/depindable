@@ -85,6 +85,15 @@ a{
   text-decoration: none;
 }
 
+.valign-wrapper {
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
 .test{
   border: 1px solid red;
 }
@@ -211,5 +220,21 @@ a{
 
     }
   }
+
+}
+
+.see-btn{
+  background-color: $primaryy-btn;
+  color: $white;
+  font-family: $ubuntu;
+  padding: 8px 16px;
+  text-transform: uppercase;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.see-btn1{
+  margin: 16px 0px;
+  text-decoration: none;
 
 }
