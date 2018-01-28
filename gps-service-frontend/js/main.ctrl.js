@@ -26,7 +26,7 @@ $scope.logInUser=function (user) {
   $scope.getmyPins(response.data.access_token);
   $scope.getfriendsPins(response.data.access_token);
 
-  $location.path('/');
+  // $location.path('/');
   // $mdToast.show(
   //   $mdToast.simple()
   //   .textContent(response.data.message)
@@ -93,7 +93,7 @@ $scope.SignUp = function(){
   }).then(function sucessCallback(response) {
     // console.log(temp1);
     if (response.status===200){
-      $location.path("/login");
+      // $location.path("/login");
       // $mdToast.show(
       //   $mdToast.simple()
       //   .textContent('User created sucessfully!')

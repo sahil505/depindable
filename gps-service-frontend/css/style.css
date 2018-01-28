@@ -465,3 +465,12 @@ a {
 .mypinonMap-page .zomato-row .zomato-card-container .card h3 {
   font-family: "Ubuntu", sans-serif;
 }
+.mypinonMap-page .zomato-row .zomato-card-container .card .visit-btn {
+  background-color: #1F8EED;
+  color: #ffffff;
+  font-family: "Ubuntu", sans-serif;
+  padding: 8px 16px;
+  text-transform: uppercase;
+  text-decoration: none;
+  cursor: pointer;
+}

@@ -197,7 +197,7 @@ app.controller('MapCtrl', function($scope, $rootScope, $location, $mdDialog, $ht
                 'remarks':user.remarks,
                 'rating':user.rating,
                 'fb_id':FB_ID,
-                'friend_name':USER_NAME,
+                'friend_name':JSON.parse($window.localStorage.profiledata).name,
                 'category':user.category
               }
             }).then(function sucessCallback(response) {

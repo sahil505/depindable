@@ -156,7 +156,7 @@ $scope.logInUser=function (user) {
   $scope.getmyPins(response.data.access_token);
   $scope.getfriendsPins(response.data.access_token);
 
-  $location.path('/');
+  // $location.path('/');
   // $mdToast.show(
   //   $mdToast.simple()
   //   .textContent(response.data.message)
@@ -223,7 +223,7 @@ $scope.SignUp = function(){
   }).then(function sucessCallback(response) {
     // console.log(temp1);
     if (response.status===200){
-      $location.path("/login");
+      // $location.path("/login");
       // $mdToast.show(
       //   $mdToast.simple()
       //   .textContent('User created sucessfully!')
@@ -819,7 +819,7 @@ app.controller('MapCtrl', function($scope, $rootScope, $location, $mdDialog, $ht
                 'remarks':user.remarks,
                 'rating':user.rating,
                 'fb_id':FB_ID,
-                'friend_name':USER_NAME,
+                'friend_name':JSON.parse($window.localStorage.profiledata).name,
                 'category':user.category
               }
             }).then(function sucessCallback(response) {
