@@ -450,8 +450,10 @@ $scope.islogin = false;
       }
       else{
         datatemp = {}
+
         if(data.category){
           datatemp['category'] = data.category;
+
         }
         else{
           datatemp['category'] = " ";
@@ -459,11 +461,13 @@ $scope.islogin = false;
 
         if(data.placename){
           datatemp['place_name'] = data.placename;
+
         }
         else{
           datatemp['place_name'] = " ";
         }
 
+          console.log(datatemp);
 
         $http({
           url:URL_PREFIX+"api/mypins/",
