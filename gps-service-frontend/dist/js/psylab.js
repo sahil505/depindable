@@ -2,7 +2,7 @@
 var app = angular.module('app', ['ngMaterial','ngRoute', 'ngAnimate','ngMessages','jkAngularRatingStars']);
 
 
-var URL_PREFIX='http://10.194.25.141:8080/';
+var URL_PREFIX='http://localhost:8080/';
 var CLIENT_ID = "bSRfOQprkYdBY1nniQaXmXyZERbgGDAUaXhlzA3i";
 var
 CLIENT_SECRET = "hsRtJ7L0QHDPgrJmyIYgjfxL24ym8rhJXk7PUfuhJm6hH3rmwgcGPrat25dITDr1u2BVbHAQ8ISV4YkIhPtgATezb806Hb1GBlQUnlDVFiLfOxQU0jzwprq7NfxyXEAp";
@@ -52,7 +52,7 @@ app.config(["$routeProvider", "$locationProvider", function($routeProvider, $loc
 app.factory("Auth", ["$http","$q","$window",function ($http, $q, $window) {
     var userFullDetails;
     function login(user) {
-        var url="http://10.194.25.141:8080/login/";
+        var url="http://localhost:8080/login/";
         var deferred = $q.defer();
         $http({
              method: "POST",
@@ -140,6 +140,10 @@ app.controller('MainCtrl', function($scope, $rootScope, $location, $mdDialog, $h
 
     // $scope.islogin="true";
   }
+
+
+
+
 
 // var isLogin = false;
 $scope.logInUser=function (user) {
@@ -244,6 +248,47 @@ $scope.SignUp = function(){
     }
   });
   }
+
+  $scope.udpdatefriends = function(friends, token){
+    console.log("updating friends........");
+
+    tempfriends = {}
+
+    for(var k=0; k<friends.data.length; k++){
+
+      // temp1[(friends.data[k].id).toString()]['name'] = friends.data[k].name;
+
+      temp2= {}
+
+      temp2['name'] = friends.data[k].name;
+      temp2['img_url'] = friends.data[k].img_url;
+
+      tempfriends[(friends.data[k].id).toString()]= temp2;
+
+      // console.log(temp1);
+    }
+
+
+    $http({
+      url:URL_PREFIX+'api/updatefriends/',
+      method:"POST",
+      headers:{
+        'Content-Type': 'application/json; charset=UTF-8',
+        'Authorization':'Bearer '+token
+      },
+      data:{
+
+          'friends':tempfriends,
+
+
+      }
+    }).then(function sucessCallback(response) {
+        console.log(response);
+    }, function errorCallback(error) {
+        console.log(error);
+    });
+  }
+
 
 $scope.getmyPins = function(token){
   console.log($scope.loginfinished);
@@ -514,27 +559,27 @@ $scope.islogin = false;
         );
       }
       else{
-        datatemp = {}
-        if(data.category){
-          datatemp['category'] = data.category;
-        }
-        else{
-          datatemp['category'] = " ";
-        }
-
-        if(data.placename){
-          datatemp['place_name'] = data.placename;
-        }
-        else{
-          datatemp['place_name'] = " ";
-        }
-
-        if(data.friend_name){
-          datatemp['friend_name'] = data.friend_name;
-        }
-        else{
-          datatemp['friend_name'] = " ";
-        }
+        // datatemp = {}
+        // if(data.category){
+        //   datatemp['category'] = data.category;
+        // }
+        // else{
+        //   datatemp['category'] = " ";
+        // }
+        //
+        // if(data.placename){
+        //   datatemp['place_name'] = data.placename;
+        // }
+        // else{
+        //   datatemp['place_name'] = " ";
+        // }
+        //
+        // if(data.friend_name){
+        //   datatemp['friend_name'] = data.friend_name;
+        // }
+        // else{
+        //   datatemp['friend_name'] = " ";
+        // }
 
 
 
@@ -547,7 +592,7 @@ $scope.islogin = false;
             'Content-Type': 'application/json; charset=UTF-8',
             'Authorization': 'Bearer ' + JSON.parse($window.localStorage.userFullDetails).token
           },
-          data:datatemp
+          data:{'place_name':data.placename}
         }).then(function sucessCallback(response) {
 
           $scope.friendspinsdata = response.data;
@@ -579,25 +624,25 @@ $scope.islogin = false;
         );
       }
       else{
-        datatemp = {}
+        // datatemp = {}
+        //
+        // if(data.category){
+        //   datatemp['category'] = data.category;
+        //
+        // }
+        // else{
+        //   datatemp['category'] = " ";
+        // }
+        //
+        // if(data.placename){
+        //   datatemp['place_name'] = data.placename;
+        //
+        // }
+        // else{
+        //   datatemp['place_name'] = " ";
+        // }
 
-        if(data.category){
-          datatemp['category'] = data.category;
-
-        }
-        else{
-          datatemp['category'] = " ";
-        }
-
-        if(data.placename){
-          datatemp['place_name'] = data.placename;
-
-        }
-        else{
-          datatemp['place_name'] = " ";
-        }
-
-          console.log(datatemp);
+          // console.log(datatemp);
 
         $http({
           url:URL_PREFIX+"api/mypins/",
@@ -606,7 +651,7 @@ $scope.islogin = false;
             'Content-Type': 'application/json; charset=UTF-8',
             'Authorization': 'Bearer ' + JSON.parse($window.localStorage.userFullDetails).token
           },
-          data:datatemp
+          data:{"place_name":data.placename}
         }).then(function sucessCallback(response) {
 
           $scope.mypinsdata = response.data;
@@ -617,6 +662,11 @@ $scope.islogin = false;
       }
 
 
+    }
+
+
+    if($window.localStorage.friendsdata && $window.localStorage.userFullDetails){
+      $scope.udpdatefriends(JSON.parse($window.localStorage.friendsdata), JSON.parse($window.localStorage.userFullDetails).token);
     }
 });
 
@@ -855,7 +905,7 @@ app.controller('MypinmapCtrl', function($scope, $rootScope, $location, $mdDialog
 
   console.log(document.getElementById('map'));
 
-
+    
     console.log($location.search());
 
     $scope.current_cat = $location.search().category;

@@ -33,9 +33,9 @@ body,html{
 @media screen and (max-width: $md-break) {
   .heading-wrapper{
     padding: 3em 16px !important;
-    h1{
-      font-size: 2rem !important;
-    }
+    // h1{
+    //   font-size: 2rem !important;
+    // }
   }
 }
 // this is loading wrapper for inde.html page
@@ -145,6 +145,10 @@ a{
 
 .home-page{
 
+  h1{
+    font-family: $ubuntu;
+  }
+
   .userprofile-container{
     // width: 95%;
     margin: 0 auto;
@@ -189,6 +193,12 @@ a{
         background-color: $white;
         height: 70vh;
 
+        .list-head{
+          p{
+            font-family: $ubuntu;
+            font-weight: 600;
+          }
+        }
         .tabs{
           height: 100%;
           // background-color: $white;

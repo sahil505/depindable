@@ -2,7 +2,7 @@
 var app = angular.module('app', ['ngMaterial','ngRoute', 'ngAnimate','ngMessages','jkAngularRatingStars']);
 
 
-var URL_PREFIX='http://10.194.25.141:8080/';
+var URL_PREFIX='http://localhost:8080/';
 var CLIENT_ID = "bSRfOQprkYdBY1nniQaXmXyZERbgGDAUaXhlzA3i";
 var
 CLIENT_SECRET = "hsRtJ7L0QHDPgrJmyIYgjfxL24ym8rhJXk7PUfuhJm6hH3rmwgcGPrat25dITDr1u2BVbHAQ8ISV4YkIhPtgATezb806Hb1GBlQUnlDVFiLfOxQU0jzwprq7NfxyXEAp";
@@ -52,7 +52,7 @@ app.config(["$routeProvider", "$locationProvider", function($routeProvider, $loc
 app.factory("Auth", ["$http","$q","$window",function ($http, $q, $window) {
     var userFullDetails;
     function login(user) {
-        var url="http://10.194.25.141:8080/login/";
+        var url="http://localhost:8080/login/";
         var deferred = $q.defer();
         $http({
              method: "POST",

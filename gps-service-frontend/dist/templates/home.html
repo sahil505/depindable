@@ -1,21 +1,12 @@
 <div class="home-page" ng-controller="MainCtrl" ng-init="getupdatedData()">
   <div ng-include="'templates/navbar.html'"></div>
-  <div style="margin-left: 0;margin-right: 0;padding-left: 0;padding-right: 0;" class="container" ng-show="!islogin">
-    <div style= "color: #FFF;	background: linear-gradient(to bottom, rgba(0,0,0,0.66) 100%, transparent), url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/336999/shinokubo_test.jpg);
-    background-size: cover, cover;background-position: center, center;height: 93vh;width: 110%;
+  <div style="margin-left: 0;margin-right: 0;padding-left: 0;padding-right: 0;width:100%" class="container" ng-show="!islogin">
+    <div  class="" style= "color: #FFF;	background: linear-gradient(to bottom, rgba(0,0,0,0.66) 100%, transparent), url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/336999/shinokubo_test.jpg);
+    background-size: cover, cover;background-position: center, center;height: 93vh;width: 100%;
     display: flex;justify-content: center;align-items: center;" id="main" class="is-loading">
-    <h1 style="	font-family:"ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", Osaka, "メイリオ", Meiryo, "ＭＳ Ｐゴシック", "MS PGothic", sans-serif;
-    font-size: 10rem;
-    display: inline-block;
-    padding: 1rem;
-    font-weight: 400;
-    position: relative;
-    opacity: 1;
-    transform: scale(1);
-    transition: transform 0.5s ease, opacity 1s ease;">
-    dePINdable
-  </h1>
-  <p class="line-1 anim-typewriter">Animation typewriter style using css steps()</p>
+    <h1 style="font-size:6rem">dePINdable<br><span style="font-size:3rem">Are you new to this place?</span><br><span style="font-size:3rem">Your Friends have been here before!</span></h1>
+
+  <!-- <p class="line-1 anim-typewriter">Animation typewriter style using css steps()</p> -->
 </div>
 </div>
 
@@ -38,14 +29,14 @@
             <md-content class="md-padding">
 
               <div class="valign-wrapper" layout="row" layout-xs="column">
-                <md-input-container class="md-block" flex-gt-sm="25">
+                <!-- <md-input-container class="md-block" flex-gt-sm="25">
                   <label>Category</label>
                   <input   ng-model="filtermypins.category"   md-select-on-focus></input>
-                </md-input-container>
-                <!-- <md-input-container class="md-block" flex-gt-sm="25">
+                </md-input-container> -->
+                <md-input-container class="md-block" flex-gt-sm="25">
                 <label>placename</label>
                 <input   ng-model="filtermypins.placename"   md-select-on-focus></input>
-              </md-input-container> -->
+              </md-input-container>
               <!-- <md-input-container class="md-block valign-wrapper" flex-gt-sm="25"> -->
 
               <div class="" flex="25" style="margin-bottom:16px">
@@ -58,6 +49,13 @@
             </div>
             <div class="" ng-if="mypinsdata.length==0">
               No data found
+            </div>
+            <div class="list-head" layout="row" layout-xs="column" layout-sm="column">
+              <p flex-gt-sm="35">Location Name</p>
+              <p flex-gt-sm="15">Rating</p>
+              <p flex-gt-sm="15">Remarks</p>
+              <p flex-gt-sm="15">Category</p>
+              <p flex-gt-sm="20">See on Map</p>
             </div>
             <ul class="mypins-list">
               <li ng-repeat="data in mypinsdata" layout="row" layout-xs="column" layout-sm="column">
@@ -73,18 +71,18 @@
         <md-tab label="Friends Pins">
           <md-content class="md-padding">
             <div class="valign-wrapper" layout="row" layout-xs="column">
-              <md-input-container class="md-block" flex-gt-sm="25">
+              <!-- <md-input-container class="md-block" flex-gt-sm="25">
                 <label>Category</label>
                 <input   ng-model="filterfriendspins.category"   md-select-on-focus></input>
-              </md-input-container>
+              </md-input-container> -->
               <md-input-container class="md-block" flex-gt-sm="25">
                 <label>Place Name</label>
                 <input   ng-model="filterfriendspins.placename"   md-select-on-focus></input>
               </md-input-container>
-              <md-input-container class="md-block" flex-gt-sm="25">
+              <!-- <md-input-container class="md-block" flex-gt-sm="25">
                 <label>Friends Name</label>
                 <input   ng-model="filterfriendspins.friend_name"  md-select-on-focus></input>
-              </md-input-container>
+              </md-input-container> -->
               <!-- <md-input-container class="md-block valign-wrapper" flex-gt-sm="25"> -->
 
               <div class="" flex-gt-sm="25" style="margin-bottom:16px">
@@ -97,6 +95,14 @@
             </div>
             <div class="" ng-if="friendspinsdata.length==0">
               No data found
+            </div>
+            <div class="list-head" layout="row" layout-xs="column" layout-sm="column">
+              <p flex-gt-sm="35">Location Name</p>
+              <p flex-gt-sm="15">Friend Name</p>
+              <p flex-gt-sm="15">Rating</p>
+              <p flex-gt-sm="15">Remarks</p>
+              <p flex-gt-sm="10">Category</p>
+              <p flex-gt-sm="10">See on Map</p>
             </div>
             <ul class="mypins-list">
 

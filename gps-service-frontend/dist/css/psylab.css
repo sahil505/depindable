@@ -419,9 +419,6 @@ body, html {
   .heading-wrapper {
     padding: 3em 16px !important;
   }
-  .heading-wrapper h1 {
-    font-size: 2rem !important;
-  }
 }
 .loader-wrapper {
   height: 100vh;
@@ -520,6 +517,9 @@ a {
   color: #99ccff;
 }
 
+.home-page h1 {
+  font-family: "Ubuntu", sans-serif;
+}
 .home-page .userprofile-container {
   margin: 0 auto;
   min-height: 20vh;
@@ -557,6 +557,10 @@ a {
   margin: 0 auto;
   background-color: #ffffff;
   height: 70vh;
+}
+.home-page .userprofile-container .show-all-pins-container .show-pins-card .list-head p {
+  font-family: "Ubuntu", sans-serif;
+  font-weight: 600;
 }
 .home-page .userprofile-container .show-all-pins-container .show-pins-card .tabs {
   height: 100%;

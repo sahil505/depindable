@@ -2,9 +2,12 @@
 
 <div class="" id="map" style="height:65vh"></div>
 
-<div class="category-row" layout="column" ng-show="!checkZomatoBtn()">
-  <div class="" layout="row" layout-align="center center">
+<div class="category-row" layout="column" >
+  <div class="" layout="row" layout-align="center center" ng-if="current_cat">
     <img src="http://maps.google.com/mapfiles/ms/icons/blue-dot.png" alt="">: Nearby Recommended Locations of {{current_cat}} category
+  </div>
+  <div class="" layout="row" layout-align="center center" ng-if="!current_cat">
+    <img src="http://maps.google.com/mapfiles/ms/icons/blue-dot.png" alt="">: Nearby Recommended Locations
   </div>
   <div class="" layout="row" layout-align="center center">
     <img src="http://maps.google.com/mapfiles/ms/icons/red-dot.png" alt="">: Pinned Location

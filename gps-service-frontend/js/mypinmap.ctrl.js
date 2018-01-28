@@ -2,7 +2,7 @@ app.controller('MypinmapCtrl', function($scope, $rootScope, $location, $mdDialog
 
   console.log(document.getElementById('map'));
 
-
+    
     console.log($location.search());
 
     $scope.current_cat = $location.search().category;
