@@ -628,3 +628,8 @@ a {
   text-decoration: none;
   cursor: pointer;
 }
+
+.category-row {
+  padding: 16px;
+  line-height: 150%;
+}

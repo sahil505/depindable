@@ -1,7 +1,15 @@
 <div class="mypinonMap-page" ng-controller="MypinmapCtrl">
 
-<div class="" id="map" style="height:60vh"></div>
+<div class="" id="map" style="height:65vh"></div>
 
+<div class="category-row" layout="column" ng-show="!checkZomatoBtn()">
+  <div class="" layout="row" layout-align="center center">
+    <img src="http://maps.google.com/mapfiles/ms/icons/blue-dot.png" alt="">: Nearby Recommended Locations of {{current_cat}} category
+  </div>
+  <div class="" layout="row" layout-align="center center">
+    <img src="http://maps.google.com/mapfiles/ms/icons/red-dot.png" alt="">: Pinned Location
+  </div>
+</div>
 <div class="zomato-btn-container" layout="row" layout-align="center center" ng-show="checkZomatoBtn()">
   <a href="" class="zomato-btn" ng-click="getZomatoData()">click to view zomato suggestions</a>
 </div>
