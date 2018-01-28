@@ -33,9 +33,9 @@ body,html{
 @media screen and (max-width: $md-break) {
   .heading-wrapper{
     padding: 3em 16px !important;
-    h1{
-      font-size: 2rem !important;
-    }
+    // h1{
+    //   font-size: 2rem !important;
+    // }
   }
 }
 // this is loading wrapper for inde.html page
@@ -145,6 +145,10 @@ a{
 
 .home-page{
 
+  h1{
+    font-family: $ubuntu;
+  }
+
   .userprofile-container{
     // width: 95%;
     margin: 0 auto;
@@ -189,6 +193,12 @@ a{
         background-color: $white;
         height: 70vh;
 
+        .list-head{
+          p{
+            font-family: $ubuntu;
+            font-weight: 600;
+          }
+        }
         .tabs{
           height: 100%;
           // background-color: $white;
@@ -237,4 +247,55 @@ a{
   margin: 16px 0px;
   text-decoration: none;
 
+}
+
+.mypinonMap-page{
+
+  .zomato-btn-container{
+    padding: 16px;
+  }
+
+  .zomato-btn{
+    background-color: $primaryy-btn;
+    color: $white;
+    font-family: $ubuntu;
+    padding: 8px 16px;
+    text-transform: uppercase;
+    text-decoration: none;
+    cursor: pointer;
+  }
+
+  .zomato-row{
+    .zomato-card-container{
+      padding: 8px;
+
+      .card{
+        min-height: 40vh;
+        padding: 16px;
+        img{
+          max-width: 100%;
+          height: 30vh;
+        }
+        h3{
+          font-family: $ubuntu;
+        }
+
+        .visit-btn{
+          background-color: $primaryy-btn;
+          color: $white;
+          font-family: $ubuntu;
+          padding: 8px 16px;
+          text-transform: uppercase;
+          text-decoration: none;
+          cursor: pointer;
+        }
+      }
+    }
+  }
+}
+
+.category-row{
+  padding: 16px;
+  line-height: 150%;
+  $font-family: $ubuntu;
 }

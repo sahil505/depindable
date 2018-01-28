@@ -1,5 +1,36 @@
 <div class="mypinonMap-page" ng-controller="MypinmapCtrl">
 
-<div class="" id="map" style="height:100vh"></div>
+<div class="" id="map" style="height:65vh"></div>
+
+<div class="category-row" layout="column" >
+  <div class="" layout="row" layout-align="center center" ng-if="current_cat">
+    <img src="http://maps.google.com/mapfiles/ms/icons/blue-dot.png" alt="">: Nearby Recommended Locations of {{current_cat}} category
+  </div>
+  <div class="" layout="row" layout-align="center center" ng-if="!current_cat">
+    <img src="http://maps.google.com/mapfiles/ms/icons/blue-dot.png" alt="">: Nearby Recommended Locations
+  </div>
+  <div class="" layout="row" layout-align="center center">
+    <img src="http://maps.google.com/mapfiles/ms/icons/red-dot.png" alt="">: Pinned Location
+  </div>
+</div>
+<div class="zomato-btn-container" layout="row" layout-align="center center" ng-show="checkZomatoBtn()">
+  <a href="" class="zomato-btn" ng-click="getZomatoData()">click to view zomato suggestions</a>
+</div>
+
+
+<div class="zomato-row" layout="row" layout-align="center center" layout-xs="column" layout-sm="column" layout-wrap>
+  <div class="zomato-card-container" ng-repeat="data in zomatoData.nearby_restaurants" flex-gt-sm="30">
+    <div class="card" md-whiteframe="1">
+      <img src={{data.restaurant.featured_image}} alt="">
+      <h3>Address : {{data.restaurant.location.address}}</h3>
+      <h3>Rating : {{data.restaurant.user_rating.aggregate_rating}}</h3>
+      <h3 style="color:#{{data.restaurant.user_rating.rating_color}}">Rating Text: {{data.restaurant.user_rating.rating_text}}</h3>
+      <h3>No fo Votes: {{data.restaurant.user_rating.votes}}</h3>
+      <a href={{data.restaurant.url}} class="visit-btn">Visit Web</a>
+
+    </div>
+  </div>
+</div>
+
 </div>
 </div>

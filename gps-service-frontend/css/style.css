@@ -265,9 +265,6 @@ body, html {
   .heading-wrapper {
     padding: 3em 16px !important;
   }
-  .heading-wrapper h1 {
-    font-size: 2rem !important;
-  }
 }
 .loader-wrapper {
   height: 100vh;
@@ -366,6 +363,9 @@ a {
   color: #99ccff;
 }
 
+.home-page h1 {
+  font-family: "Ubuntu", sans-serif;
+}
 .home-page .userprofile-container {
   margin: 0 auto;
   min-height: 20vh;
@@ -404,6 +404,10 @@ a {
   background-color: #ffffff;
   height: 70vh;
 }
+.home-page .userprofile-container .show-all-pins-container .show-pins-card .list-head p {
+  font-family: "Ubuntu", sans-serif;
+  font-weight: 600;
+}
 .home-page .userprofile-container .show-all-pins-container .show-pins-card .tabs {
   height: 100%;
 }
@@ -437,4 +441,45 @@ a {
 .see-btn1 {
   margin: 16px 0px;
   text-decoration: none;
+}
+
+.mypinonMap-page .zomato-btn-container {
+  padding: 16px;
+}
+.mypinonMap-page .zomato-btn {
+  background-color: #1F8EED;
+  color: #ffffff;
+  font-family: "Ubuntu", sans-serif;
+  padding: 8px 16px;
+  text-transform: uppercase;
+  text-decoration: none;
+  cursor: pointer;
+}
+.mypinonMap-page .zomato-row .zomato-card-container {
+  padding: 8px;
+}
+.mypinonMap-page .zomato-row .zomato-card-container .card {
+  min-height: 40vh;
+  padding: 16px;
+}
+.mypinonMap-page .zomato-row .zomato-card-container .card img {
+  max-width: 100%;
+  height: 30vh;
+}
+.mypinonMap-page .zomato-row .zomato-card-container .card h3 {
+  font-family: "Ubuntu", sans-serif;
+}
+.mypinonMap-page .zomato-row .zomato-card-container .card .visit-btn {
+  background-color: #1F8EED;
+  color: #ffffff;
+  font-family: "Ubuntu", sans-serif;
+  padding: 8px 16px;
+  text-transform: uppercase;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.category-row {
+  padding: 16px;
+  line-height: 150%;
 }

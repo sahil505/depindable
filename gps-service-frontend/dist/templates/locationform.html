@@ -33,11 +33,16 @@
         <label>Category</label>
 
         <md-select required name="category" ng-model="user.category">
-          <md-option  value="Cultural">Cultural</md-option>
-          <md-option  value="Food and Beverages">Food and Beverages</md-option>
-          <md-option  value="Historical Monuments">Historical Monuments</md-option>
-          <md-option  value="Religious">Religious</md-option>
-          <md-option  value="Adventurous">Adventurous</md-option>
+          <md-option  value="restaurant">Restaurant</md-option>
+          <md-option  value="school">School</md-option>
+          <md-option  value="gym">Gym</md-option>
+          <md-option  value="car_rental">Car Rental</md-option>
+          <md-option  value="cafe">Cafe</md-option>
+          <md-option  value="bar">Bar</md-option>
+          <md-option  value="bakery">Bakery</md-option>
+          <md-option  value="amusement_park">Amusement Park</md-option>
+          <md-option  value="doctor">Doctor</md-option>
+          <md-option  value="travel_agency">Travel Agency</md-option>
         </md-select>
         <div ng-messages="userForm.category.$error">
           <div ng-message="required">This is required.</div>
