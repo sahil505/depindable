@@ -592,3 +592,30 @@ a {
   margin: 16px 0px;
   text-decoration: none;
 }
+
+.mypinonMap-page .zomato-btn-container {
+  padding: 16px;
+}
+.mypinonMap-page .zomato-btn {
+  background-color: #1F8EED;
+  color: #ffffff;
+  font-family: "Ubuntu", sans-serif;
+  padding: 8px 16px;
+  text-transform: uppercase;
+  text-decoration: none;
+  cursor: pointer;
+}
+.mypinonMap-page .zomato-row .zomato-card-container {
+  padding: 8px;
+}
+.mypinonMap-page .zomato-row .zomato-card-container .card {
+  min-height: 40vh;
+  padding: 16px;
+}
+.mypinonMap-page .zomato-row .zomato-card-container .card img {
+  max-width: 100%;
+  height: 30vh;
+}
+.mypinonMap-page .zomato-row .zomato-card-container .card h3 {
+  font-family: "Ubuntu", sans-serif;
+}
